@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="Quarkus" url="file://$PROJECT_DIR$/infrastructure" />
+    <file type="Quarkus" url="file://$PROJECT_DIR$/load-bookstore" />
+    <file type="Quarkus" url="file://$PROJECT_DIR$/rest-book" />
+    <file type="Quarkus" url="file://$PROJECT_DIR$/rest-number" />
+  </component>
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/rest-number/pom.xml" />
+        <option value="$PROJECT_DIR$/rest-book/pom.xml" />
+        <option value="$PROJECT_DIR$/load-bookstore/pom.xml" />
+        <option value="$PROJECT_DIR$/infrastructure/pom.xml" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="graalvm-jdk-17" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+</project>

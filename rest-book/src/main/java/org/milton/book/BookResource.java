@@ -17,7 +17,6 @@ import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
-
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
