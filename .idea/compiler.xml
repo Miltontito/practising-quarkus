@@ -10,13 +10,15 @@
         <module name="rest-number" />
         <module name="rest-book" />
         <module name="infrastructure" />
+        <module name="authentication" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="authentication" options="-parameters" />
       <module name="infrastructure" options="-parameters" />
-      <module name="load-bookstore" options="-parameters" />
+      <module name="load-bookstore" options="" />
       <module name="rest-book" options="-parameters" />
       <module name="rest-number" options="-parameters" />
     </option>

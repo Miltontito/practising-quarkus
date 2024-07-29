@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="Quarkus" url="file://$PROJECT_DIR$/authentication" />
     <file type="Quarkus" url="file://$PROJECT_DIR$/infrastructure" />
     <file type="Quarkus" url="file://$PROJECT_DIR$/load-bookstore" />
     <file type="Quarkus" url="file://$PROJECT_DIR$/rest-book" />
@@ -15,6 +16,7 @@
         <option value="$PROJECT_DIR$/load-bookstore/pom.xml" />
         <option value="$PROJECT_DIR$/infrastructure/pom.xml" />
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/authentication/pom.xml" />
       </list>
     </option>
   </component>
