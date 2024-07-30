@@ -1,4 +1,4 @@
-# authentication
+# security-keycloak-auth
 
 This project uses Quarkus, the Supersonic Subatomic Java Framework.
 
@@ -49,14 +49,6 @@ Or, if you don't have GraalVM installed, you can run the native executable build
 ./mvnw package -Dnative -Dquarkus.native.container-build=true
 ```
 
-You can then execute your native executable with: `./target/authentication-1.0.0-SNAPSHOT-runner`
+You can then execute your native executable with: `./target/security-keycloak-auth-1.0.0-SNAPSHOT-runner`
 
 If you want to learn more about building native executables, please consult <https://quarkus.io/guides/maven-tooling>.
-
-## Provided Code
-
-### RESTEasy Reactive
-
-Easily start your Reactive RESTful Web Services
-
-[Related guide section...](https://quarkus.io/guides/getting-started-reactive#reactive-jax-rs-resources)

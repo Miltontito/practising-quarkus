@@ -10,11 +10,11 @@
 #
 # Then, build the image with:
 #
-# docker build -f src/main/docker/Dockerfile.native-micro -t quarkus/authentication .
+# docker build -f src/main/docker/Dockerfile.native-micro -t quarkus/security-keycloak-auth .
 #
 # Then run the container using:
 #
-# docker run -i --rm -p 8080:8080 quarkus/authentication
+# docker run -i --rm -p 8080:8080 quarkus/security-keycloak-auth
 #
 ###
 FROM quay.io/quarkus/quarkus-micro-image:2.0

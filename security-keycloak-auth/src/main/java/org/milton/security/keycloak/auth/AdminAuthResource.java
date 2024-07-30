@@ -1,4 +1,4 @@
-package org.milton.authentication;
+package org.milton.security.keycloak.auth;
 
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
@@ -9,7 +9,7 @@ import io.quarkus.security.Authenticated;
 
 @Path("/api/admin")
 @Authenticated
-public class AdminAuthenticationResource {
+public class AdminAuthResource {
 
     @GET
     @Produces(MediaType.TEXT_PLAIN)

@@ -7,6 +7,7 @@
     <file type="Quarkus" url="file://$PROJECT_DIR$/load-bookstore" />
     <file type="Quarkus" url="file://$PROJECT_DIR$/rest-book" />
     <file type="Quarkus" url="file://$PROJECT_DIR$/rest-number" />
+    <file type="Quarkus" url="file://$PROJECT_DIR$/security-keycloak-auth" />
   </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">
@@ -17,6 +18,7 @@
         <option value="$PROJECT_DIR$/infrastructure/pom.xml" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/authentication/pom.xml" />
+        <option value="$PROJECT_DIR$/security-keycloak-auth/pom.xml" />
       </list>
     </option>
   </component>

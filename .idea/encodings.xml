@@ -11,5 +11,7 @@
     <file url="file://$PROJECT_DIR$/rest-book/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/rest-number/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/rest-number/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/security-keycloak-auth/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/security-keycloak-auth/src/main/resources" charset="UTF-8" />
   </component>
 </project>
