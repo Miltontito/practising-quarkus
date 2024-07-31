@@ -15,6 +15,7 @@
         <quarkus.platform.version>3.8.5</quarkus.platform.version>
         <skipITs>true</skipITs>
         <surefire-plugin.version>3.2.5</surefire-plugin.version>
+        <org.mapstruct.version>1.5.2.Final</org.mapstruct.version>
     </properties>
 
     <dependencyManagement>
@@ -22,6 +23,13 @@
             <dependency>
                 <groupId>${quarkus.platform.group-id}</groupId>
                 <artifactId>${quarkus.platform.artifact-id}</artifactId>
+                <version>${quarkus.platform.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>${quarkus.platform.group-id}</groupId>
+                <artifactId>quarkus-camel-bom</artifactId>
                 <version>${quarkus.platform.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
@@ -77,10 +85,38 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-container-image-docker</artifactId>
         </dependency>
+        <dependency>
+      		<groupId>org.mapstruct</groupId>
+      		<artifactId>mapstruct</artifactId>
+      		<version>${org.mapstruct.version}</version>
+    	</dependency>
+    	<dependency>
+      		<groupId>org.mapstruct</groupId>
+      		<artifactId>mapstruct-processor</artifactId>
+      		<version>${org.mapstruct.version}</version>
+      		<scope>provided</scope>
+    	</dependency>
     </dependencies>
 
     <build>
         <plugins>
+           <plugin>
+		<artifactId>maven-compiler-plugin</artifactId>
+		<version>${compiler-plugin.version}</version>
+		<configuration>
+		  <compilerArgs>
+		    <arg>-parameters</arg>
+		    <arg>-Amapstruct.defaultComponentModel=cdi</arg>
+		  </compilerArgs>
+		  <annotationProcessorPaths>
+		    <path>
+		      <groupId>org.mapstruct</groupId>
+		      <artifactId>mapstruct-processor</artifactId>
+		      <version>${org.mapstruct.version}</version>
+		    </path>
+		  </annotationProcessorPaths>
+		</configuration>
+            </plugin>
             <plugin>
                 <groupId>${quarkus.platform.group-id}</groupId>
                 <artifactId>quarkus-maven-plugin</artifactId>
