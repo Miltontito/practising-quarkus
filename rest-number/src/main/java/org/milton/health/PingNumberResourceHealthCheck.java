@@ -6,7 +6,7 @@ import org.eclipse.microprofile.health.Liveness;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import org.milton.NumberResource;
+import org.milton.servicio.ServicioNumero;
 
 
 @Liveness
@@ -14,11 +14,11 @@ import org.milton.NumberResource;
 public class PingNumberResourceHealthCheck implements HealthCheck {
 
     @Inject
-    NumberResource numberResource;
+    ServicioNumero servicioNumero;
 
     @Override
     public HealthCheckResponse call(){
-        numberResource.ping();
+        servicioNumero.ping();
         return HealthCheckResponse.named("Ping Number REST Endpoint").up().build();
     }
 }
