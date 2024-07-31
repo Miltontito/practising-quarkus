@@ -22,8 +22,8 @@ export class NumberEndpointService {
   public defaultHeaders = new HttpHeaders();
 
   /**
-   * Generates book numbers
-   * These book numbers have several formats: ISBN, ASIN and EAN
+   * Generates libro numbers
+   * These libro numbers have several formats: ISBN, ASIN and EAN
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
@@ -38,7 +38,7 @@ export class NumberEndpointService {
     ];
     headers = headers.set('Accept', httpHeaderAccepts);
 
-    return this.httpClient.request<BookNumbers>('get', `${this.basePath}/api/numbers/book`,
+    return this.httpClient.request<BookNumbers>('get', `${this.basePath}/api/numbers/libro`,
       {
         headers: headers,
         observe: observe,

@@ -1,15 +1,15 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {BookEndpointService} from "../../shared/api/bookEndpoint.service";
-import {Book} from "../../shared/model/book";
+import {Book} from "../../shared/model/libro";
 
 @Component({
-  templateUrl: './book-delete.component.html',
+  templateUrl: './libro-delete.component.html',
   styles: []
 })
 export class BookDeleteComponent implements OnInit {
 
-  book: Book;
+  libro: Book;
 
   constructor(private bookEndpointService: BookEndpointService,
               private route: ActivatedRoute,
@@ -23,14 +23,14 @@ export class BookDeleteComponent implements OnInit {
   }
 
   load(id: number) {
-    this.bookEndpointService.getBook(id).subscribe((book) => {
-      this.book = book;
+    this.bookEndpointService.getBook(id).subscribe((libro) => {
+      this.libro = libro;
     });
   }
 
   delete(id: number) {
     this.bookEndpointService.deleteBook(id).subscribe((response) => {
-      this.router.navigate(['/book-list']);
+      this.router.navigate(['/libro-list']);
     });
   }
 }

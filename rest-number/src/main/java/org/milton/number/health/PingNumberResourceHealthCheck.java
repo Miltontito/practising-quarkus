@@ -1,4 +1,4 @@
-package org.milton.health;
+package org.milton.number.health;
 
 import org.eclipse.microprofile.health.HealthCheck;
 import org.eclipse.microprofile.health.HealthCheckResponse;
@@ -6,7 +6,7 @@ import org.eclipse.microprofile.health.Liveness;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import org.milton.servicio.ServicioNumero;
+import org.milton.number.servicio.ServicioNumero;
 
 
 @Liveness

@@ -1,15 +1,15 @@
 import {Component, OnInit} from '@angular/core';
 
 import {BookEndpointService} from "../../shared/api/bookEndpoint.service";
-import {Book} from "../../shared/model/book";
+import {Book} from "../../shared/model/libro";
 
 @Component({
-  templateUrl: './book-list.component.html',
+  templateUrl: './libro-list.component.html',
   styles: []
 })
 export class BookListComponent implements OnInit {
 
-  books?: Book[];
+  libros?: Book[];
 
   constructor(private numberEndpointService: BookEndpointService) {
   }
@@ -19,6 +19,6 @@ export class BookListComponent implements OnInit {
   }
 
   listBooks(): void {
-    this.numberEndpointService.getAllBooks().subscribe(books => this.books = books);
+    this.numberEndpointService.getAllBooks().subscribe(libros => this.libros = libros);
   }
 }

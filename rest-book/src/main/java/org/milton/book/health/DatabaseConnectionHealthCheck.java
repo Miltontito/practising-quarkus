@@ -1,6 +1,6 @@
 package org.milton.book.health;
 
-import org.milton.book.Book;
+import org.milton.book.modelo.Libro;
 import org.milton.book.BookService;
 
 import org.eclipse.microprofile.health.HealthCheck;
@@ -23,8 +23,8 @@ public class DatabaseConnectionHealthCheck implements HealthCheck {
         HealthCheckResponseBuilder responseBuilder = HealthCheckResponse
                 .named("Book Datasource connection health check");
         try {
-            List<Book> books = bookService.findAllBooks();
-            responseBuilder.withData("Number of books in the database", books.size()).up();
+            List<Libro> libros = bookService.findAllBooks();
+            responseBuilder.withData("Number of books in the database", libros.size()).up();
         } catch (IllegalStateException e) {
             responseBuilder.down();
         }

@@ -1,4 +1,4 @@
-package org.milton.recurso;
+package org.milton.number.recurso;
 
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 

@@ -1,11 +1,12 @@
-package org.milton.recurso;
+package org.milton.number.recurso;
 
 import com.github.javafaker.Faker;
+import jakarta.enterprise.context.ApplicationScoped;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import java.time.Instant;
 
-
+@ApplicationScoped
 public class RecursoNumero {
 
     @ConfigProperty(name = "number.separator", defaultValue = "false")

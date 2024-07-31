@@ -13,6 +13,8 @@ import jakarta.json.bind.JsonbBuilder;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
+import org.milton.book.modelo.Libro;
+
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.time.Instant;
@@ -38,19 +40,19 @@ public class BookService {
     @Fallback(fallbackMethod = "fallbackPersistBook")
 
     //Persists a given book
-    public Book persistBook(@Valid Book book) {
+    public Libro persistBook(@Valid Libro libro) {
         //The book microservice invokes the number microservice
         IsbnNumbers isbnNumbers = numberProxy.generateIsbnNumbers();
-        book.isbn13 = isbnNumbers.getIsbn13();
-        book.isbn10 = isbnNumbers.getIsbn10();
+        libro.isbn13 = isbnNumbers.getIsbn13();
+        libro.isbn10 = isbnNumbers.getIsbn10();
 
-        Book.persist(book);
-        return book;
+        Libro.persist(libro);
+        return libro;
     }
 
-    private Book fallbackPersistBook(Book book) throws FileNotFoundException {
+    private Libro fallbackPersistBook(Libro libro) throws FileNotFoundException {
         LOGGER.warn("Falling back on persisting a book");
-        String bookJson = JsonbBuilder.create().toJson(book);
+        String bookJson = JsonbBuilder.create().toJson(libro);
         try (PrintWriter out = new PrintWriter("book-"
                 + Instant.now().toEpochMilli() + ".json")) {
             out.println(bookJson);
@@ -60,35 +62,35 @@ public class BookService {
 
     //List of all books
     @Transactional(Transactional.TxType.SUPPORTS)
-    public List<Book> findAllBooks() {
-        return Book.listAll();
+    public List<Libro> findAllBooks() {
+        return Libro.listAll();
     }
 
     //Finds the book by his id
     @Transactional(Transactional.TxType.SUPPORTS)
-    public Optional<Book> findBookById(Long id) {
-        return Book.findByIdOptional(id);
+    public Optional<Libro> findBookById(Long id) {
+        return Libro.findByIdOptional(id);
     }
 
     //Finds a random book
     @Transactional(Transactional.TxType.SUPPORTS)
-    public Book findRandomBook() {
-        Book randomBook = null;
-        while (randomBook == null) {
-            randomBook = Book.findRandom();
+    public Libro findRandomBook() {
+        Libro randomLibro = null;
+        while (randomLibro == null) {
+            randomLibro = Libro.findRandom();
         }
-        return randomBook;
+        return randomLibro;
     }
 
     //Updates the given book
-    public Book updateBook(@Valid Book book) {
-        Book entity = em.merge(book);
+    public Libro updateBook(@Valid Libro libro) {
+        Libro entity = em.merge(libro);
         return entity;
     }
 
     //Deletes the given book through his id
     public void deleteBook(Long id) {
-        Book.deleteById(id);
+        Libro.deleteById(id);
     }
 
 }

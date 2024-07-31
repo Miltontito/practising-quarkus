@@ -1,4 +1,4 @@
-package org.milton.book;
+package org.milton.book.modelo;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
@@ -15,7 +15,7 @@ import java.util.Random;
 
 @Schema(description = "Book representation")
 @Entity
-public class Book extends PanacheEntity {
+public class Libro extends PanacheEntity {
 
     @NotNull
     @Schema(required = true)
@@ -40,10 +40,10 @@ public class Book extends PanacheEntity {
     @Size(min = 1, max = 10000)
     public String description;
 
-    public static Book findRandom(){
-        long countBooks = Book.count();
+    public static Libro findRandom(){
+        long countBooks = Libro.count();
         int randomBook = new Random().nextInt((int) countBooks);
-        return Book.findAll().page(randomBook, 1).firstResult();
+        return Libro.findAll().page(randomBook, 1).firstResult();
     }
 
 }

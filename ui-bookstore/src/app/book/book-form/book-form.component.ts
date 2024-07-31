@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import {Book} from "../../shared/model/book";
+import {Book} from "../../shared/model/libro";
 import {BookEndpointService} from "../../shared/api/bookEndpoint.service";
 import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
-  templateUrl: './book-form.component.html',
+  templateUrl: './libro-form.component.html',
   styles: []
 })
 export class BookFormComponent implements OnInit {
 
-  book:Book;
+  libro:Book;
 
   constructor(private bookEndpointService: BookEndpointService,
               private route: ActivatedRoute,
@@ -20,8 +20,8 @@ export class BookFormComponent implements OnInit {
   }
 
   save() {
-    this.bookEndpointService.createBook(this.book).subscribe((response: string) => {
-      this.router.navigate(['/book-list']);
+    this.bookEndpointService.createBook(this.libro).subscribe((response: string) => {
+      this.router.navigate(['/libro-list']);
     });
   }
 

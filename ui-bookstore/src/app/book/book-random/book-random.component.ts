@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import {Book} from "../../shared/model/book";
+import {Book} from "../../shared/model/libro";
 import {BookEndpointService} from "../../shared/api/bookEndpoint.service";
 
 @Component({
-  templateUrl: './book-random.component.html',
+  templateUrl: './libro-random.component.html',
   styles: []
 })
 export class BookRandomComponent implements OnInit {
 
-  book: Book;
+  libro: Book;
 
   constructor(private bookEndpointService: BookEndpointService) { }
 
@@ -17,8 +17,8 @@ export class BookRandomComponent implements OnInit {
   }
 
   load() {
-    this.bookEndpointService.getRandomBook().subscribe((book) => {
-      this.book = book;
+    this.bookEndpointService.getRandomBook().subscribe((libro) => {
+      this.libro = libro;
     });
   }
 }

@@ -1,4 +1,4 @@
-package org.milton.servicio;
+package org.milton.number.servicio;
 
 
 import jakarta.inject.Inject;
@@ -16,13 +16,16 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import org.milton.recurso.BookNumbersPOJO;
-import org.milton.recurso.RecursoNumero;
+import org.milton.number.recurso.BookNumbersPOJO;
+import org.milton.number.recurso.RecursoNumero;
 
 
 @Path("/api/numbers/book")
 @Tag(name = "Number Endpoint")
 public class ServicioNumero {
+
+    @Inject
+    RecursoNumero recurso;
 
     //Ping
     @GET
@@ -58,17 +61,13 @@ public class ServicioNumero {
     //Solicitud
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-
     public Response generateBookNumbers() throws InterruptedException {
 
         //Log info
         LOGGER.info("Generating book numbers");
 
-        //new booknumbers
-        RecursoNumero bookNumbers = new RecursoNumero();
-
         //Devuelve un objeto POJO
-        BookNumbersPOJO numerosGenerados = bookNumbers.generateBookNumbers();
+        BookNumbersPOJO numerosGenerados = recurso.generateBookNumbers();
 
         //Como respuesta enviamos este objeto POJO;
         return Response.ok(numerosGenerados).build();

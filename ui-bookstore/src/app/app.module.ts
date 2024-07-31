@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BookModule } from './book/book.module';
+import { BookModule } from './libro/libro.module';
 import { NumberModule } from './number/number.module';
 import { InventoryModule } from './inventory/inventory.module';
 

@@ -17,6 +17,8 @@ import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
+import org.milton.book.modelo.Libro;
+
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
@@ -30,68 +32,80 @@ import static jakarta.ws.rs.core.Response.Status.NOT_FOUND;
 
 public class BookResource {
 
+    //Ping
     @GET
     @Path("/ping")
     @Produces(MediaType.TEXT_PLAIN)
-    public String ping(){
+    public String ping() {
         return "ping";
     }
 
+    //Injeccion del BookService como service.
     @Inject
     BookService service;
 
-    private static final Logger LOGGER = Logger.getLogger(BookResource.class);
+    @Inject
+    Logger LOGGER;
 
+    //----------------------| Documentación API |----------------------
     @Operation(summary = "Returns a random book")
-    @APIResponse(responseCode = "200", content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = Book.class)))
-
+    @APIResponse(responseCode = "200", content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = Libro.class)))
+    //----------------------| Metrics |----------------------
     @Counted(name = "countGetRandomBook", description = "Counts how many times the GetRandomBook " +
             "method has been invoked")
     @Timed(name = "timeGetRandomBook", description = "Times how long it takes to invoke the " +
             "GetRandomBook method", unit = MetricUnits.MILLISECONDS)
-
+    //----------------------| Peticion GET -> retorna un libro aleatorio |----------------------
     @GET
     @Path("/random")
     public Response getRandomBook() {
-        Book book = service.findRandomBook();
-        LOGGER.debug("Found random book " + book);
-        return Response.ok(book).build();
+
+        //Retorna un objeto Libro random.
+        Libro libro = service.findRandomBook();
+
+        //Log info
+        LOGGER.debug("Found random book " + libro);
+
+        //Responde con el libro.
+        return Response.ok(libro).build();
     }
 
+    //----------------------| Documentación API |----------------------
     @Operation(summary = "Returns all the books from the database")
     @APIResponse(responseCode = "200", content = @Content(mediaType = MediaType
-            .APPLICATION_JSON, schema = @Schema(implementation = Book.class, type = SchemaType
+            .APPLICATION_JSON, schema = @Schema(implementation = Libro.class, type = SchemaType
             .ARRAY)))
     @APIResponse(responseCode = "204", description = "No books")
-
+    //----------------------| Metrics |----------------------
     @Counted(name = "countGetAllBooks", description = "Counts how many times the GetAllBooks " +
             "method has been invoked")
     @Timed(name = "timeGetAllBooks", description = "Times how long it takes to invoke the " +
             "GetAllBooks method", unit = MetricUnits.MILLISECONDS)
-
+    //----------------------| Peticion GET -> retorna todos los libros |----------------------
     @GET
     public Response getAllBooks() {
-        List<Book> books = service.findAllBooks();
-        LOGGER.debug("Total number of books " + books);
-        return Response.ok(books).build();
-
+        List<Libro> libros = service.findAllBooks();
+        LOGGER.debug("Total number of books " + libros);
+        return Response.ok(libros).build();
     }
 
+    //----------------------| Documentación API |----------------------
     @Operation(summary = "Returns a book for a given identifier")
     @APIResponse(responseCode = "200", content = @Content(mediaType = MediaType
-            .APPLICATION_JSON, schema = @Schema(implementation = Book.class)))
+            .APPLICATION_JSON, schema = @Schema(implementation = Libro.class)))
     @APIResponse(responseCode = "404", description = "The book is not found for the given identifier")
-
+    //----------------------| Metrics |----------------------
     @Counted(name = "countGetBook", description = "Counts how many times the GetBook " +
             "method has been invoked")
     @Timed(name = "timeGetBook", description = "Times how long it takes to invoke the " +
             "GetBook method", unit = MetricUnits.MILLISECONDS)
-
+    //----------------------| Peticion GET -> retorna el libro segun su id |----------------------
     @GET
     @Path("/{id}")
     public Response getBook(@Parameter(description = "Book identifier", required = true)
-                            @PathParam("id") Long id){
-        Optional<Book> book = service.findBookById(id);
+                            @PathParam("id")
+                            Long id){
+        Optional<Libro> book = service.findBookById(id);
         if (book.isPresent()) {
             LOGGER.debug("Found book " + book);
             return Response.ok(book).build();
@@ -101,54 +115,58 @@ public class BookResource {
         }
     }
 
+    //----------------------| Documentación API |----------------------
     @Operation(summary = "Creates a valid book")
     @APIResponse(responseCode = "201", description = "The URI of the created book",
             content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema
                     (implementation = URI.class)))
-
+    //----------------------| Metrics |----------------------
     @Counted(name = "countCreateBook", description = "Counts how many times the createBook " +
             "method has been invoked")
     @Timed(name = "timeCreateBook", description = "Times how long it takes to invoke " +
             "the createBook method", unit = MetricUnits.MILLISECONDS)
-
+    //----------------------| Peticion POST -> Crea un libro |----------------------
     @POST
-    public Response createBook(@RequestBody(required = true, content = @Content(mediaType
-            = MediaType.APPLICATION_JSON, schema = @Schema(implementation = Book.class))) @Valid
-                               Book book, @Context UriInfo uriInfo) {
-
-        book = service.persistBook(book);
-        UriBuilder builder = uriInfo.getAbsolutePathBuilder().path(Long.toString(book.id));
+    public Response createBook(@RequestBody(required = true,
+                                content = @Content(mediaType = MediaType.APPLICATION_JSON,
+                                schema = @Schema(implementation = Libro.class)))
+                                @Valid Libro libro,
+                                @Context UriInfo uriInfo) {
+        libro = service.persistBook(libro);
+        UriBuilder builder = uriInfo.getAbsolutePathBuilder().path(Long.toString(libro.id));
         LOGGER.debug("New book created with URI " + builder.build().toString());
         return Response.created(builder.build()).build();
     }
 
+    //----------------------| Documentación API |----------------------
     @Operation(summary = "Updates an existing book")
     @APIResponse(responseCode = "200", description = "The updated book", content =
     @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation =
-            Book.class)))
-
+            Libro.class)))
+    //----------------------| Metrics |----------------------
     @Counted(name = "countUpdateBook", description = "Counts how many times the updateBook " +
             "method has been invoked")
     @Timed(name = "timeUpdateBook", description = "Times how long it takes to invoke the " +
             "updateBook method", unit = MetricUnits.MILLISECONDS)
-
+    //----------------------| Peticion PUT -> Actualiza un libro |----------------------
     @PUT
     public Response updateBook(@RequestBody(required = true, content = @Content(mediaType
-            = MediaType.APPLICATION_JSON, schema = @Schema(implementation = Book.class))) @Valid
-                               Book book) {
-        book = service.updateBook(book);
-        LOGGER.debug("Book updated with new valued " + book);
-        return Response.ok(book).build();
+            = MediaType.APPLICATION_JSON, schema = @Schema(implementation = Libro.class))) @Valid
+                               Libro libro) {
+        libro = service.updateBook(libro);
+        LOGGER.debug("Book updated with new valued " + libro);
+        return Response.ok(libro).build();
     }
 
+    //----------------------| Documentación API |----------------------
     @Operation(summary = "Deletes an existing book")
     @APIResponse(responseCode = "204", description = "The book has been successfully deleted")
-
+    //----------------------| MEtrics |----------------------
     @Counted(name = "countDeleteBook", description = "Counts how many times the deleteBook " +
             "method has been invoked")
     @Timed(name = "timeDeleteBook", description = "Times how long it takes to invoke the " +
             "delete method", unit = MetricUnits.MILLISECONDS)
-
+    //----------------------| Peticion DELETE -> borra un libro |----------------------
     @DELETE
     @Path("/{id}")
     public Response deleteBook(@Parameter(description = "Book identifier", required = true) @PathParam("id") Long id) {

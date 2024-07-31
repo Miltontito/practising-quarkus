@@ -1,4 +1,4 @@
-package org.milton;
+package org.milton.number;
 
 import io.quarkus.runtime.ShutdownEvent;
 import io.quarkus.runtime.StartupEvent;

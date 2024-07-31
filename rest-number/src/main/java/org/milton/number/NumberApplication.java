@@ -1,4 +1,4 @@
-package org.milton;
+package org.milton.number;
 
 import org.eclipse.microprofile.openapi.annotations.ExternalDocumentation;
 import org.eclipse.microprofile.openapi.annotations.OpenAPIDefinition;
