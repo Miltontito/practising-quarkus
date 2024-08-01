@@ -17,12 +17,13 @@ import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
-import org.milton.book.modelo.Book;
 import org.milton.book.servicio.ServicioLibro;
+import org.milton.book.transferible.TransferibleLibro;
 
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
+
 
 import static jakarta.ws.rs.core.Response.Status.NOT_FOUND;
 
@@ -50,7 +51,7 @@ public class RecursoLibro {
 
     //----------------------| Documentación API |----------------------
     @Operation(summary = "Returns a random book")
-    @APIResponse(responseCode = "200", content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = Book.class)))
+    @APIResponse(responseCode = "200", content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = TransferibleLibro.class)))
     //----------------------| Metrics |----------------------
     @Counted(name = "countGetRandomBook", description = "Counts how many times the GetRandomBook " +
             "method has been invoked")
@@ -61,17 +62,17 @@ public class RecursoLibro {
     @Path("/random")
     public Response getRandomBook() {
 
-        //Retorna un objeto Libro random.
-        Book book = service.findRandomBook();
-        LOGGER.debug("Found random book " + book.getTitle());
+        //Retorna un objeto TransferibleLibro random.
+        TransferibleLibro transferibleLibro = service.findRandomBook();
+        LOGGER.debug("Found random book " + transferibleLibro.getTitle());
         //Responde con el libro.
-        return Response.ok(book).build();
+        return Response.ok(transferibleLibro).build();
     }
 
     //----------------------| Documentación API |----------------------
     @Operation(summary = "Returns all the books from the database")
     @APIResponse(responseCode = "200", content = @Content(mediaType = MediaType
-            .APPLICATION_JSON, schema = @Schema(implementation = Book.class, type = SchemaType
+            .APPLICATION_JSON, schema = @Schema(implementation = TransferibleLibro.class, type = SchemaType
             .ARRAY)))
     @APIResponse(responseCode = "204", description = "No books")
     //----------------------| Metrics |----------------------
@@ -82,15 +83,15 @@ public class RecursoLibro {
     //----------------------| Peticion GET -> retorna todos los libros |----------------------
     @GET
     public Response getAllBooks() {
-        List<Book> books = service.findAllBooks();
-        LOGGER.debug("Total number of books " + books.size());
-        return Response.ok(books).build();
+        List<TransferibleLibro> transferibleLibroList = service.findAllBooks();
+        LOGGER.debug("Total number of books " + transferibleLibroList.size());
+        return Response.ok(transferibleLibroList).build();
     }
 
     //----------------------| Documentación API |----------------------
     @Operation(summary = "Returns a book for a given identifier")
     @APIResponse(responseCode = "200", content = @Content(mediaType = MediaType
-            .APPLICATION_JSON, schema = @Schema(implementation = Book.class)))
+            .APPLICATION_JSON, schema = @Schema(implementation = TransferibleLibro.class)))
     @APIResponse(responseCode = "404", description = "The book is not found for the given identifier")
     //----------------------| Metrics |----------------------
     @Counted(name = "countGetBook", description = "Counts how many times the GetBook " +
@@ -103,10 +104,10 @@ public class RecursoLibro {
     public Response getBook(@Parameter(description = "Book identifier", required = true)
                             @PathParam("id")
                             Long id){
-        Optional<Book> book = service.findBookById(id);
-        if (book.isPresent()) {
-            LOGGER.debug("Found book " + book.get().getTitle());
-            return Response.ok(book).build();
+        Optional<TransferibleLibro> optionalTransferibleLibro = service.findBookById(id);
+        if (optionalTransferibleLibro.isPresent()) {
+            LOGGER.debug("Found book " + optionalTransferibleLibro.get().getTitle());
+            return Response.ok(optionalTransferibleLibro).build();
         }else{
             LOGGER.debug("No book found with id " + id);
             return Response.status(NOT_FOUND).build();
@@ -127,11 +128,11 @@ public class RecursoLibro {
     @POST
     public Response createBook(@RequestBody(required = true,
                                 content = @Content(mediaType = MediaType.APPLICATION_JSON,
-                                schema = @Schema(implementation = Book.class)))
-                                @Valid Book book,
+                                schema = @Schema(implementation = TransferibleLibro.class)))
+                                @Valid TransferibleLibro transferibleLibro,
                                 @Context UriInfo uriInfo) {
-        book = service.persistBook(book);
-        UriBuilder builder = uriInfo.getAbsolutePathBuilder().path(Long.toString(book.getId()));
+        transferibleLibro = service.persistBook(transferibleLibro);
+        UriBuilder builder = uriInfo.getAbsolutePathBuilder().path(Long.toString(transferibleLibro.getId()));
         LOGGER.debug("New book created with URI " + builder.build().toString());
         return Response.created(builder.build()).build();
     }
@@ -140,7 +141,7 @@ public class RecursoLibro {
     @Operation(summary = "Updates an existing book")
     @APIResponse(responseCode = "200", description = "The updated book", content =
     @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation =
-            Book.class)))
+            TransferibleLibro.class)))
     //----------------------| Metrics |----------------------
     @Counted(name = "countUpdateBook", description = "Counts how many times the updateBook " +
             "method has been invoked")
@@ -148,12 +149,15 @@ public class RecursoLibro {
             "updateBook method", unit = MetricUnits.MILLISECONDS)
     //----------------------| Peticion PUT -> Actualiza un libro |----------------------
     @PUT
-    public Response updateBook(@RequestBody(required = true, content = @Content(mediaType
-            = MediaType.APPLICATION_JSON, schema = @Schema(implementation = Book.class))) @Valid
-                               Book book) {
-        book = service.updateBook(book);
-        LOGGER.debug("Book updated with new valued " + book);
-        return Response.ok(book).build();
+    public Response updateBook(@RequestBody(required = true,
+                                content = @Content(mediaType = MediaType.APPLICATION_JSON,
+                                schema = @Schema(implementation = TransferibleLibro.class)))
+                                @Valid TransferibleLibro transferibleLibro) {
+
+        transferibleLibro = service.updateBook(transferibleLibro);
+        LOGGER.debug("Book updated with new valued " + transferibleLibro);
+        return Response.ok(transferibleLibro).build();
+
     }
 
     //----------------------| Documentación API |----------------------

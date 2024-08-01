@@ -12,7 +12,7 @@ import java.util.Optional;
 public interface AccesoLibroInterfaz extends PanacheRepository<Book> {
     Book findRandomBook();
     List<Book> findAllBooks();
-    Optional<Book> findBookById(Long id);
+    Book findBookById(Long id);
     Book persistBook(Book book);
     Book updateBook(Book book);
     void deleteBook(Long id);

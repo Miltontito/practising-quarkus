@@ -13,6 +13,8 @@ import org.junit.jupiter.api.TestMethodOrder;
 import jakarta.ws.rs.core.HttpHeaders;
 import jakarta.ws.rs.core.MediaType;
 import org.milton.book.modelo.Book;
+import org.milton.book.transferible.TransferibleLibro;
+import org.milton.book.transformador.TransformadorLibro;
 
 import java.math.BigDecimal;
 import java.net.MalformedURLException;
@@ -98,10 +100,12 @@ public class BookResourceTest {
         book.setMediumImageUrl(DEFAULT_MEDIUM_IMAGE_URL);
         book.setDescription(DEFAULT_DESCRIPTION);
 
+        TransferibleLibro transferibleLibro = TransformadorLibro.INSTANCE.ToLibroDTO(book);
+
         // Persists a new book
         String location =
                 given()
-                        .body(book)
+                        .body(transferibleLibro)
                         .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)
                         .header(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON).
                         when()
@@ -216,9 +220,10 @@ public class BookResourceTest {
     void shouldNotAddInvalidItem() {
         Book book = new Book();
         book.setTitle(null);
+        TransferibleLibro transferibleLibro = TransformadorLibro.INSTANCE.ToLibroDTO(book);
 
         given()
-                .body(book)
+                .body(transferibleLibro)
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)
                 .header(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON).
                 when()

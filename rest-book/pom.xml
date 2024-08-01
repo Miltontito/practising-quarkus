@@ -15,6 +15,7 @@
         <quarkus.platform.version>3.8.5</quarkus.platform.version>
         <skipITs>true</skipITs>
         <surefire-plugin.version>3.2.5</surefire-plugin.version>
+        <org.mapstruct.version>1.5.2.Final</org.mapstruct.version>
     </properties>
 
     <dependencyManagement>
@@ -30,6 +31,17 @@
     </dependencyManagement>
 
     <dependencies>
+	    <dependency>
+	      <groupId>org.mapstruct</groupId>
+	      <artifactId>mapstruct</artifactId>
+	      <version>${org.mapstruct.version}</version>
+	    </dependency>
+	    <dependency>
+	      <groupId>org.mapstruct</groupId>
+	      <artifactId>mapstruct-processor</artifactId>
+	      <version>${org.mapstruct.version}</version>
+	      <scope>provided</scope>
+	    </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-resteasy</artifactId>
@@ -106,6 +118,25 @@
 
     <build>
         <plugins>
+	      <!-- agregamos a la compilacion la configuracion de como se van a inyectar los beans, ademas de indicar quien va a procesar las anotaciones -->
+	      <plugin>
+		<artifactId>maven-compiler-plugin</artifactId>
+		<version>${compiler-plugin.version}</version>
+		<configuration>
+		  <compilerArgs>
+		    <arg>-parameters</arg>
+		    <!-- para quarkus 2.x hay que cambiar "jakarta" por "cdi" -->
+		    <arg>-Amapstruct.defaultComponentModel=jakarta</arg>
+		  </compilerArgs>
+		  <annotationProcessorPaths>
+		    <path>
+		      <groupId>org.mapstruct</groupId>
+		      <artifactId>mapstruct-processor</artifactId>
+		      <version>${org.mapstruct.version}</version>
+		    </path>
+		  </annotationProcessorPaths>
+		</configuration>
+	      </plugin>
             <plugin>
                 <groupId>${quarkus.platform.group-id}</groupId>
                 <artifactId>quarkus-maven-plugin</artifactId>

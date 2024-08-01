@@ -6,10 +6,9 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="rest-book" />
+        <module name="load-bookstore" />
         <module name="security-keycloak-auth" />
         <module name="infrastructure" />
-        <module name="load-bookstore" />
         <module name="authentication" />
         <module name="ui-bookstore" />
       </profile>
@@ -21,6 +20,7 @@
           <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct-processor/1.5.2.Final/mapstruct-processor-1.5.2.Final.jar" />
           <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct/1.5.2.Final/mapstruct-1.5.2.Final.jar" />
         </processorPath>
+        <module name="rest-book" />
         <module name="rest-number" />
       </profile>
     </annotationProcessing>

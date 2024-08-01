@@ -82,9 +82,8 @@ public class AccesoLibro implements AccesoLibroInterfaz{
 
     @Override
     @Transactional(Transactional.TxType.SUPPORTS)
-    public Optional<Book> findBookById(Long id) {
-
-        return findByIdOptional(id);
+    public Book findBookById(Long id) {
+        return findById(id);
     }
 
     @Override
