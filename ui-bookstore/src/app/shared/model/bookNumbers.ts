@@ -1,5 +1,5 @@
 /**
- * Several formats of libro numbers
+ * Several formats of book numbers
  */
 // tag::adocSnippet[]
 export interface BookNumbers {

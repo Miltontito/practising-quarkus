@@ -1,12 +1,12 @@
 /**
  * Book API
- * This API allows CRUD operations on libros
+ * This API allows CRUD operations on books
  *//* tslint:disable:no-unused-variable member-ordering */
 
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpResponse, HttpEvent} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {Book} from '../model/libro';
+import {Book} from '../model/book';
 
 
 @Injectable()
@@ -19,7 +19,7 @@ export class BookEndpointService {
   }
 
   /**
-   * Returns all the libros from the database
+   * Returns all the books from the database
    *
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
@@ -37,7 +37,7 @@ export class BookEndpointService {
     // to determine the Content-Type header
     const consumes: string[] = [];
 
-    return this.httpClient.request<Array<Book>>('get', `${this.basePath}/api/libros`,
+    return this.httpClient.request<Array<Book>>('get', `${this.basePath}/api/books`,
       {
         headers: headers,
         observe: observe,
@@ -47,7 +47,7 @@ export class BookEndpointService {
   }
 
   /**
-   * Deletes an existing libro
+   * Deletes an existing book
    *
    * @param id Book identifier
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
@@ -61,7 +61,7 @@ export class BookEndpointService {
 
     let headers = this.defaultHeaders;
 
-    return this.httpClient.request<any>('delete', `${this.basePath}/api/libros/${encodeURIComponent(String(id))}`,
+    return this.httpClient.request<any>('delete', `${this.basePath}/api/books/${encodeURIComponent(String(id))}`,
       {
         headers: headers,
         observe: observe,
@@ -71,7 +71,7 @@ export class BookEndpointService {
   }
 
   /**
-   * Returns a libro for a given identifier
+   * Returns a book for a given identifier
    *
    * @param id Book identifier
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
@@ -91,7 +91,7 @@ export class BookEndpointService {
     ];
     headers = headers.set('Accept', httpHeaderAccepts);
 
-    return this.httpClient.request<Book>('get', `${this.basePath}/api/libros/${encodeURIComponent(String(id))}`,
+    return this.httpClient.request<Book>('get', `${this.basePath}/api/books/${encodeURIComponent(String(id))}`,
       {
         headers: headers,
         observe: observe,
@@ -101,7 +101,7 @@ export class BookEndpointService {
   }
 
   /**
-   * Creates a valid libro
+   * Creates a valid book
    *
    * @param body
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
@@ -127,7 +127,7 @@ export class BookEndpointService {
     ];
     headers = headers.set('Content-Type', consumes);
 
-    return this.httpClient.request<string>('post', `${this.basePath}/api/libros`,
+    return this.httpClient.request<string>('post', `${this.basePath}/api/books`,
       {
         body: body,
         headers: headers,
@@ -138,7 +138,7 @@ export class BookEndpointService {
   }
 
   /**
-   * Updates an existing  libro
+   * Updates an existing  book
    *
    * @param body
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
@@ -164,7 +164,7 @@ export class BookEndpointService {
     ];
     headers = headers.set('Content-Type', consumes);
 
-    return this.httpClient.request<Book>('put', `${this.basePath}/api/libros`,
+    return this.httpClient.request<Book>('put', `${this.basePath}/api/books`,
       {
         body: body,
         headers: headers,
@@ -175,7 +175,7 @@ export class BookEndpointService {
   }
 
   /**
-   * Returns a random libro
+   * Returns a random book
    *
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
@@ -190,7 +190,7 @@ export class BookEndpointService {
     ];
     headers = headers.set('Accept', httpHeaderAccepts);
 
-    return this.httpClient.request<Book>('get', `${this.basePath}/api/libros/random`,
+    return this.httpClient.request<Book>('get', `${this.basePath}/api/books/random`,
       {
         headers: headers,
         observe: observe,

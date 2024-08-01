@@ -1,7 +1,7 @@
 package org.milton.book.health;
 
-import org.milton.book.modelo.Libro;
-import org.milton.book.BookService;
+import org.milton.book.modelo.Book;
+import org.milton.book.servicio.ServicioLibro;
 
 import org.eclipse.microprofile.health.HealthCheck;
 import org.eclipse.microprofile.health.HealthCheckResponse;
@@ -16,15 +16,15 @@ import java.util.List;
 @ApplicationScoped
 public class DatabaseConnectionHealthCheck implements HealthCheck {
     @Inject
-    BookService bookService;
+    ServicioLibro servicioLibro;
 
     @Override
     public HealthCheckResponse call() {
         HealthCheckResponseBuilder responseBuilder = HealthCheckResponse
                 .named("Book Datasource connection health check");
         try {
-            List<Libro> libros = bookService.findAllBooks();
-            responseBuilder.withData("Number of books in the database", libros.size()).up();
+            List<Book> books = servicioLibro.findAllBooks();
+            responseBuilder.withData("Number of books in the database", books.size()).up();
         } catch (IllegalStateException e) {
             responseBuilder.down();
         }

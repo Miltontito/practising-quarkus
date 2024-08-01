@@ -10,11 +10,11 @@
 #
 # Then, build the image with:
 #
-# docker build -f src/main/docker/Dockerfile.native-micro -t quarkus/rest-libro .
+# docker build -f src/main/docker/Dockerfile.native-micro -t quarkus/rest-book .
 #
 # Then run the container using:
 #
-# docker run -i --rm -p 8080:8080 quarkus/rest-libro
+# docker run -i --rm -p 8080:8080 quarkus/rest-book
 #
 ###
 FROM quay.io/quarkus/quarkus-micro-image:2.0

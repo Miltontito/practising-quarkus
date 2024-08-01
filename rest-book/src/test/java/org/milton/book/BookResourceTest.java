@@ -12,7 +12,7 @@ import org.junit.jupiter.api.TestMethodOrder;
 
 import jakarta.ws.rs.core.HttpHeaders;
 import jakarta.ws.rs.core.MediaType;
-import org.milton.book.modelo.Libro;
+import org.milton.book.modelo.Book;
 
 import java.math.BigDecimal;
 import java.net.MalformedURLException;
@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @QuarkusTest
 @QuarkusTestResource(Database.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class LibroResourceTest {
+public class BookResourceTest {
 
     private static final String DEFAULT_TITLE = "Title";
     private static final String UPDATED_TITLE = "Title (updated)";
@@ -66,7 +66,7 @@ public class LibroResourceTest {
     @Test
     @Order(1)
     void shouldGetInitialItems() {
-        List<Libro> libros =
+        List<Book> books =
                 given().
                         when()
                         .get("/api/books").
@@ -74,34 +74,34 @@ public class LibroResourceTest {
                         .statusCode(OK.getStatusCode())
                         .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)
                         .extract().body().as(getBookTypeRef());
-        nbBooks = libros.size();
+        nbBooks = books.size();
     }
 
-    private TypeRef<List<Libro>> getBookTypeRef() {
-        return new TypeRef<List<Libro>>() {
+    private TypeRef<List<Book>> getBookTypeRef() {
+        return new TypeRef<List<Book>>() {
         };
     }
 
     @Test
     @Order(2)
     void shouldAddAnItem() {
-        Libro libro = new Libro();
-        libro.title = DEFAULT_TITLE;
-        libro.isbn13 = MOCK_ISBN_13;
-        libro.isbn10 = MOCK_ISBN_10;
-        libro.author = DEFAULT_AUTHOR;
-        libro.yearOfPublication = DEFAULT_YEAR_OF_PUBLICATION;
-        libro.nbOfPages = DEFAULT_NB_OF_PAGES;
-        libro.rank = DEFAULT_RANK;
-        libro.price = DEFAULT_PRICE;
-        libro.smallImageUrl = DEFAULT_SMALL_IMAGE_URL;
-        libro.mediumImageUrl = DEFAULT_MEDIUM_IMAGE_URL;
-        libro.description = DEFAULT_DESCRIPTION;
+        Book book = new Book();
+        book.title = DEFAULT_TITLE;
+        book.isbn13 = MOCK_ISBN_13;
+        book.isbn10 = MOCK_ISBN_10;
+        book.author = DEFAULT_AUTHOR;
+        book.yearOfPublication = DEFAULT_YEAR_OF_PUBLICATION;
+        book.nbOfPages = DEFAULT_NB_OF_PAGES;
+        book.rank = DEFAULT_RANK;
+        book.price = DEFAULT_PRICE;
+        book.smallImageUrl = DEFAULT_SMALL_IMAGE_URL;
+        book.mediumImageUrl = DEFAULT_MEDIUM_IMAGE_URL;
+        book.description = DEFAULT_DESCRIPTION;
 
         // Persists a new book
         String location =
                 given()
-                        .body(libro)
+                        .body(book)
                         .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)
                         .header(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON).
                         when()
@@ -136,7 +136,7 @@ public class LibroResourceTest {
                 .body("description", Is.is(DEFAULT_DESCRIPTION));
 
         // Checks there is an extra book in the database
-        List<Libro> libros =
+        List<Book> books =
                 given().
                         when()
                         .get("/api/books").
@@ -145,29 +145,29 @@ public class LibroResourceTest {
                         .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)
                         .extract().body().as(getBookTypeRef());
 
-        assertEquals(nbBooks + 1, libros.size());
+        assertEquals(nbBooks + 1, books.size());
     }
 
     @Test
     @Order(3)
     void shouldUpdateAnItem() {
-        Libro libro = new Libro();
-        libro.id = Long.valueOf(bookId);
-        libro.title = UPDATED_TITLE;
-        libro.isbn13 = MOCK_ISBN_13;
-        libro.isbn10 = MOCK_ISBN_10;
-        libro.author = UPDATED_AUTHOR;
-        libro.yearOfPublication = UPDATED_YEAR_OF_PUBLICATION;
-        libro.nbOfPages = UPDATED_NB_OF_PAGES;
-        libro.rank = UPDATED_RANK;
-        libro.price = UPDATED_PRICE;
-        libro.smallImageUrl = UPDATED_SMALL_IMAGE_URL;
-        libro.mediumImageUrl = UPDATED_MEDIUM_IMAGE_URL;
-        libro.description = UPDATED_DESCRIPTION;
+        Book book = new Book();
+        book.id = Long.valueOf(bookId);
+        book.title = UPDATED_TITLE;
+        book.isbn13 = MOCK_ISBN_13;
+        book.isbn10 = MOCK_ISBN_10;
+        book.author = UPDATED_AUTHOR;
+        book.yearOfPublication = UPDATED_YEAR_OF_PUBLICATION;
+        book.nbOfPages = UPDATED_NB_OF_PAGES;
+        book.rank = UPDATED_RANK;
+        book.price = UPDATED_PRICE;
+        book.smallImageUrl = UPDATED_SMALL_IMAGE_URL;
+        book.mediumImageUrl = UPDATED_MEDIUM_IMAGE_URL;
+        book.description = UPDATED_DESCRIPTION;
 
         // Updates the previously created book
         given()
-                .body(libro)
+                .body(book)
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)
                 .header(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON).
                 when()
@@ -200,7 +200,7 @@ public class LibroResourceTest {
                 .statusCode(NO_CONTENT.getStatusCode());
 
         // Checks there is less a book in the database
-        List<Libro> libros =
+        List<Book> books =
                 given().
                         when()
                         .get("/api/books").
@@ -209,16 +209,16 @@ public class LibroResourceTest {
                         .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)
                         .extract().body().as(getBookTypeRef());
 
-        assertEquals(nbBooks, libros.size());
+        assertEquals(nbBooks, books.size());
     }
 
     @Test
     void shouldNotAddInvalidItem() {
-        Libro libro = new Libro();
-        libro.title = null;
+        Book book = new Book();
+        book.title = null;
 
         given()
-                .body(libro)
+                .body(book)
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)
                 .header(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON).
                 when()

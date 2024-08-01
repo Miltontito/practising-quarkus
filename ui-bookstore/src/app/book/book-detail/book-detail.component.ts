@@ -1,15 +1,15 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {BookEndpointService} from "../../shared/api/bookEndpoint.service";
-import {Book} from "../../shared/model/libro";
+import {Book} from "../../shared/model/book";
 
 @Component({
-  templateUrl: './libro-detail.component.html',
+  templateUrl: './book-detail.component.html',
   styles: []
 })
 export class BookDetailComponent implements OnInit {
 
-  libro: Book;
+  book: Book;
 
   constructor(private bookEndpointService: BookEndpointService,
               private route: ActivatedRoute) {
@@ -22,8 +22,8 @@ export class BookDetailComponent implements OnInit {
   }
 
   load(id: number) {
-    this.bookEndpointService.getBook(id).subscribe((libro: Book) => {
-      this.libro = libro;
+    this.bookEndpointService.getBook(id).subscribe((book: Book) => {
+      this.book = book;
     });
   }
 }
