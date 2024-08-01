@@ -78,7 +78,7 @@ public class BookResourceTest {
     }
 
     private TypeRef<List<Book>> getBookTypeRef() {
-        return new TypeRef<List<Book>>() {
+        return new TypeRef<>() {
         };
     }
 
@@ -86,17 +86,17 @@ public class BookResourceTest {
     @Order(2)
     void shouldAddAnItem() {
         Book book = new Book();
-        book.title = DEFAULT_TITLE;
-        book.isbn13 = MOCK_ISBN_13;
-        book.isbn10 = MOCK_ISBN_10;
-        book.author = DEFAULT_AUTHOR;
-        book.yearOfPublication = DEFAULT_YEAR_OF_PUBLICATION;
-        book.nbOfPages = DEFAULT_NB_OF_PAGES;
-        book.rank = DEFAULT_RANK;
-        book.price = DEFAULT_PRICE;
-        book.smallImageUrl = DEFAULT_SMALL_IMAGE_URL;
-        book.mediumImageUrl = DEFAULT_MEDIUM_IMAGE_URL;
-        book.description = DEFAULT_DESCRIPTION;
+        book.setTitle(DEFAULT_TITLE);
+        book.setIsbn13(MOCK_ISBN_13);
+        book.setIsbn10(MOCK_ISBN_10);
+        book.setAuthor(DEFAULT_AUTHOR);
+        book.setYearOfPublication(DEFAULT_YEAR_OF_PUBLICATION);
+        book.setNbOfPages(DEFAULT_NB_OF_PAGES);
+        book.setRank(DEFAULT_RANK);
+        book.setPrice(DEFAULT_PRICE);
+        book.setSmallImageUrl(DEFAULT_SMALL_IMAGE_URL);
+        book.setMediumImageUrl(DEFAULT_MEDIUM_IMAGE_URL);
+        book.setDescription(DEFAULT_DESCRIPTION);
 
         // Persists a new book
         String location =
@@ -152,18 +152,18 @@ public class BookResourceTest {
     @Order(3)
     void shouldUpdateAnItem() {
         Book book = new Book();
-        book.id = Long.valueOf(bookId);
-        book.title = UPDATED_TITLE;
-        book.isbn13 = MOCK_ISBN_13;
-        book.isbn10 = MOCK_ISBN_10;
-        book.author = UPDATED_AUTHOR;
-        book.yearOfPublication = UPDATED_YEAR_OF_PUBLICATION;
-        book.nbOfPages = UPDATED_NB_OF_PAGES;
-        book.rank = UPDATED_RANK;
-        book.price = UPDATED_PRICE;
-        book.smallImageUrl = UPDATED_SMALL_IMAGE_URL;
-        book.mediumImageUrl = UPDATED_MEDIUM_IMAGE_URL;
-        book.description = UPDATED_DESCRIPTION;
+        book.setId(Long.valueOf(bookId));
+        book.setTitle(UPDATED_TITLE);
+        book.setIsbn13(MOCK_ISBN_13);
+        book.setIsbn10(MOCK_ISBN_10);
+        book.setAuthor(UPDATED_AUTHOR);
+        book.setYearOfPublication(UPDATED_YEAR_OF_PUBLICATION);
+        book.setNbOfPages(UPDATED_NB_OF_PAGES);
+        book.setRank(UPDATED_RANK);
+        book.setPrice(UPDATED_PRICE);
+        book.setSmallImageUrl(UPDATED_SMALL_IMAGE_URL);
+        book.setMediumImageUrl(UPDATED_MEDIUM_IMAGE_URL);
+        book.setDescription(UPDATED_DESCRIPTION);
 
         // Updates the previously created book
         given()
@@ -215,7 +215,7 @@ public class BookResourceTest {
     @Test
     void shouldNotAddInvalidItem() {
         Book book = new Book();
-        book.title = null;
+        book.setTitle(null);
 
         given()
                 .body(book)

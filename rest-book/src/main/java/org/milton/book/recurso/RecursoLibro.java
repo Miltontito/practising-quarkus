@@ -63,10 +63,7 @@ public class RecursoLibro {
 
         //Retorna un objeto Libro random.
         Book book = service.findRandomBook();
-
-        //Log info
-        LOGGER.debug("Found random book " + book);
-
+        LOGGER.debug("Found random book " + book.getTitle());
         //Responde con el libro.
         return Response.ok(book).build();
     }
@@ -86,7 +83,7 @@ public class RecursoLibro {
     @GET
     public Response getAllBooks() {
         List<Book> books = service.findAllBooks();
-        LOGGER.debug("Total number of books " + books);
+        LOGGER.debug("Total number of books " + books.size());
         return Response.ok(books).build();
     }
 
@@ -108,7 +105,7 @@ public class RecursoLibro {
                             Long id){
         Optional<Book> book = service.findBookById(id);
         if (book.isPresent()) {
-            LOGGER.debug("Found book " + book);
+            LOGGER.debug("Found book " + book.get().getTitle());
             return Response.ok(book).build();
         }else{
             LOGGER.debug("No book found with id " + id);
@@ -134,7 +131,7 @@ public class RecursoLibro {
                                 @Valid Book book,
                                 @Context UriInfo uriInfo) {
         book = service.persistBook(book);
-        UriBuilder builder = uriInfo.getAbsolutePathBuilder().path(Long.toString(book.id));
+        UriBuilder builder = uriInfo.getAbsolutePathBuilder().path(Long.toString(book.getId()));
         LOGGER.debug("New book created with URI " + builder.build().toString());
         return Response.created(builder.build()).build();
     }

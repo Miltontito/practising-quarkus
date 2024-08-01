@@ -1,10 +1,8 @@
 package org.milton.book.modelo;
 
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -19,6 +17,8 @@ public class Book{
 
     //---------------------| Entidad |---------------------
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "book_seq")
+    @SequenceGenerator(name = "book_seq", sequenceName = "book_sequence")
     private Long id;
     @NotNull
     @Schema(required = true)
@@ -78,6 +78,9 @@ public class Book{
     public @Size(min = 1, max = 10000) String getDescription() {
         return description;
     }
+    public Long getId() {
+        return id;
+    }
 
     //---------------------| Setters |---------------------
 
@@ -110,5 +113,11 @@ public class Book{
     }
     public void setIsbn13(String isbn13) {
         this.isbn13 = isbn13;
+    }
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+    public void setId(Long id) {
+        this.id = id;
     }
 }

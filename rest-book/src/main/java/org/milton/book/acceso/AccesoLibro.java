@@ -45,7 +45,7 @@ public class AccesoLibro implements AccesoLibroInterfaz{
 
         em.persist(book);
 
-        LOGGER.info("Persisting Book...");
+        LOGGER.debug("Persisting Book...");
         return book;
     }
 
@@ -69,18 +69,21 @@ public class AccesoLibro implements AccesoLibroInterfaz{
             return null;
         }
         int randomBook = new Random().nextInt((int) countBooks);
+        LOGGER.debug("Finding Random Book...");
         return findAll().page(randomBook, 1).firstResult();
     }
 
     @Override
     @Transactional(Transactional.TxType.SUPPORTS)
     public List<Book> findAllBooks() {
+        LOGGER.debug("Listing All Books...");
         return listAll();
     }
 
     @Override
     @Transactional(Transactional.TxType.SUPPORTS)
     public Optional<Book> findBookById(Long id) {
+
         return findByIdOptional(id);
     }
 
