@@ -15,7 +15,6 @@ public class TransferibleLibro{
     private String title;
     private String isbn13;
     private String isbn10;
-    private String author;
     private Integer yearOfPublication;
     private Integer nbOfPages;
     private Integer rank;
@@ -24,6 +23,8 @@ public class TransferibleLibro{
     private URL mediumImageUrl;
     private String description;
 
+    private String author;
+    private String categoria;
     //---------------------| Getters |---------------------
 
     public @NotNull String getTitle() {

@@ -1,3 +1,4 @@
+
 package org.milton.book.health;
 
 import org.eclipse.microprofile.health.HealthCheck;

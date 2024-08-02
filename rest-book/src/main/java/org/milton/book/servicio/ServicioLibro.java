@@ -22,6 +22,7 @@ public class ServicioLibro {
 
     //Persists a given book
     public TransferibleLibro persistBook(TransferibleLibro transferibleLibro) {
+        //------------------------| toLibroDTO(Libro) -> DTO |------------------------
         return TransformadorLibro.INSTANCE.ToLibroDTO(acceso.persistBook(TransformadorLibro.INSTANCE.toEntity(transferibleLibro)));
     }
 

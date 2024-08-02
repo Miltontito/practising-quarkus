@@ -1,3 +1,5 @@
+
+
 package org.milton.book.acceso;
 
 /* Acceso a los datos de la base de datos, acá se encuentras cosas como actualizar o eliminar, persistir, etc. */
@@ -18,7 +20,6 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.time.Instant;
 import java.util.List;
-import java.util.Optional;
 import java.util.Random;
 
 @ApplicationScoped

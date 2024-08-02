@@ -10,24 +10,23 @@ import jakarta.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.net.URL;
 
-
 @Schema(description = "Book representation")
 @Entity
 public class Book{
 
     //---------------------| Entidad |---------------------
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "book_seq")
-    @SequenceGenerator(name = "book_seq", sequenceName = "book_sequence")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     @NotNull
     @Schema(required = true)
     private String title;
     @Column(name = "isbn_13")
     private String isbn13;
+    private String author;
     @Column(name = "isbn_10")
     private String isbn10;
-    private String author;
     @Column(name = "year_of_publication")
     private Integer yearOfPublication;
     @Column(name = "nb_of_pages")
@@ -53,9 +52,6 @@ public class Book{
     }
     public String getIsbn10() {
         return isbn10;
-    }
-    public String getAuthor() {
-        return author;
     }
     public Integer getYearOfPublication() {
         return yearOfPublication;
@@ -114,10 +110,15 @@ public class Book{
     public void setIsbn13(String isbn13) {
         this.isbn13 = isbn13;
     }
-    public void setAuthor(String author) {
-        this.author = author;
-    }
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 }
