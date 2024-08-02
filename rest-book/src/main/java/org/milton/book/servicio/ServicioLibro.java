@@ -7,13 +7,11 @@ import org.eclipse.microprofile.faulttolerance.Fallback;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
-import org.milton.book.modelo.Book;
 import org.milton.book.transferible.TransferibleLibro;
 import org.milton.book.transformador.TransformadorLibro;
 
 import java.io.FileNotFoundException;
 import java.util.List;
-import java.util.Optional;
 
 @ApplicationScoped
 @Transactional(Transactional.TxType.REQUIRED)

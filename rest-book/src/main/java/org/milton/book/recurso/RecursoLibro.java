@@ -22,7 +22,6 @@ import org.milton.book.transferible.TransferibleLibro;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
 
 import static jakarta.ws.rs.core.Response.Status.NOT_FOUND;
@@ -104,9 +103,9 @@ public class RecursoLibro {
     public Response getBook(@Parameter(description = "Book identifier", required = true)
                             @PathParam("id")
                             Long id){
-        Optional<TransferibleLibro> optionalTransferibleLibro = service.findBookById(id);
-        if (optionalTransferibleLibro.isPresent()) {
-            LOGGER.debug("Found book " + optionalTransferibleLibro.get().getTitle());
+        TransferibleLibro optionalTransferibleLibro = service.findBookById(id);
+        if (optionalTransferibleLibro != null) {
+            LOGGER.debug("Found book " + optionalTransferibleLibro.getTitle());
             return Response.ok(optionalTransferibleLibro).build();
         }else{
             LOGGER.debug("No book found with id " + id);
