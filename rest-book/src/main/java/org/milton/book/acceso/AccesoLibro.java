@@ -14,11 +14,14 @@ import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.jboss.logging.Logger;
 import org.milton.book.client.IsbnNumbers;
 import org.milton.book.client.NumberProxy;
+import org.milton.book.modelo.Autor;
 import org.milton.book.modelo.Book;
+import org.milton.book.modelo.Categoria;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -95,6 +98,38 @@ public class AccesoLibro implements AccesoLibroInterfaz{
     @Override
     public void deleteBook(Long id) {
         deleteById(id);
+    }
+
+
+    // <-------------------------| V0.1 |------------------------->
+
+
+    @Override
+    public List<Book> findBestBooks(Double punctuation) {
+        return List.of();
+    }
+
+    @Override
+    public List<Book> findBooksByAuthor(Autor autor) {
+
+        List<Book> booksByAuthor = new ArrayList<>();
+
+        long countBooks = count();
+        if (countBooks == 0){
+            return null;
+        }
+
+        for(Book b : findAllBooks()){
+            if (b.getAuthors().contains(autor)){
+                booksByAuthor.add(b);
+            }
+        }
+        return booksByAuthor;
+    }
+
+    @Override
+    public List<Book> findBooksByCategory(Categoria categoria) {
+        return List.of();
     }
 
 

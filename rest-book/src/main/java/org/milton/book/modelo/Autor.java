@@ -1,4 +1,3 @@
-/*
 package org.milton.book.modelo;
 
 import jakarta.persistence.*;
@@ -8,10 +7,9 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 @Schema(description = "Author representation")
 @Entity
-public class Autores {
+public class Autor {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "author_seq")
-    @SequenceGenerator(name = "author_seq", sequenceName = "author_sequence")
+    @GeneratedValue
     private Long id;
     @NotNull
     @Schema(required = true)
@@ -22,7 +20,6 @@ public class Autores {
     private String apellido;
     @Column
     private String nacionalidad;
-
     @ManyToOne
     private Book book;
 
@@ -59,6 +56,3 @@ public class Autores {
         this.book = book;
     }
 }
-
-
- */

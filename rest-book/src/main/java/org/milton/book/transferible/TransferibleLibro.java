@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 import java.net.URL;
+import java.util.List;
 
 public class TransferibleLibro{
 
@@ -23,8 +24,8 @@ public class TransferibleLibro{
     private URL mediumImageUrl;
     private String description;
 
-    private String author;
-    private String categoria;
+    private List<TransferibleAutor> authors;
+    private TransferibleCategoria category;
     //---------------------| Getters |---------------------
 
     public @NotNull String getTitle() {
@@ -35,9 +36,6 @@ public class TransferibleLibro{
     }
     public String getIsbn10() {
         return isbn10;
-    }
-    public String getAuthor() {
-        return author;
     }
     public Integer getYearOfPublication() {
         return yearOfPublication;
@@ -96,10 +94,22 @@ public class TransferibleLibro{
     public void setIsbn13(String isbn13) {
         this.isbn13 = isbn13;
     }
-    public void setAuthor(String author) {
-        this.author = author;
-    }
     public void setId(Long id) {
         this.id = id;
+    }
+
+
+
+    public List<TransferibleAutor> getAuthors() {
+        return authors;
+    }
+    public void setAuthors(List<TransferibleAutor> authors) {
+        this.authors = authors;
+    }
+    public TransferibleCategoria getCategory() {
+        return category;
+    }
+    public void setCategory(TransferibleCategoria category) {
+        this.category = category;
     }
 }

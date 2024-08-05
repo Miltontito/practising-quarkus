@@ -9,14 +9,20 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.net.URL;
+import java.util.List;
 
+//Un libro puede tener muchos autores
+
+// |Libro| 1 ---> * |Autores|
+
+// |Libro| 1 ---> 1 |Categoria|
 @Schema(description = "Book representation")
 @Entity
 public class Book{
 
     //---------------------| Entidad |---------------------
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     private Long id;
 
     @NotNull
@@ -24,7 +30,6 @@ public class Book{
     private String title;
     @Column(name = "isbn_13")
     private String isbn13;
-    private String author;
     @Column(name = "isbn_10")
     private String isbn10;
     @Column(name = "year_of_publication")
@@ -41,6 +46,12 @@ public class Book{
     @Column(length = 10000)
     @Size(min = 1, max = 10000)
     private String description;
+
+    @OneToMany
+    private List<Autor> authors;
+    @OneToOne
+    private Categoria category;
+
 
     //---------------------| Getters |---------------------
 
@@ -114,11 +125,19 @@ public class Book{
         this.id = id;
     }
 
-    public String getAuthor() {
-        return author;
+
+
+    public Categoria getCategory() {
+        return category;
+    }
+    public void setCategory(Categoria category) {
+        this.category = category;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public List<Autor> getAuthors() {
+        return authors;
+    }
+    public void setAuthors(List<Autor> authors) {
+        this.authors = authors;
     }
 }
