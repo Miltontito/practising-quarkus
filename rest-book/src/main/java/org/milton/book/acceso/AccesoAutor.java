@@ -7,7 +7,6 @@ import org.milton.book.modelo.Autor;
 import org.milton.book.modelo.Book;
 
 import java.util.List;
-
 public class AccesoAutor implements AccesoAutorInterface{
 
     @Inject
@@ -42,11 +41,23 @@ public class AccesoAutor implements AccesoAutorInterface{
         deleteById(id);
     }
 
-    // <-------------------------| V0.1 |------------------------->
-
-    // Obtiene todos los libros de un autor en especifico
     @Override
     public List<Book> findAllAuthorBooks(Autor autor) {
-        return accesoLibro.findBooksByAuthor(autor);
+        return List.of();
     }
+
+
+    // <-------------------------| V0.1 |------------------------->
+
+    /*
+    @Override
+    public List<Book> findAllAuthorBooks(Autor autor) {
+        for (Book b : accesoLibro.findAllBooks()){
+            autor.
+        }
+        return List.of();
+    }
+
+
+     */
 }

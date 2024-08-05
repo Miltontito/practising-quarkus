@@ -14,7 +14,6 @@ import java.io.FileNotFoundException;
 import java.util.List;
 
 @ApplicationScoped
-@Transactional(Transactional.TxType.REQUIRED)
 public class ServicioLibro {
 
     @Inject

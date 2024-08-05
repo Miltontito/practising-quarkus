@@ -47,8 +47,6 @@ public class Book{
     @Size(min = 1, max = 10000)
     private String description;
 
-    @OneToMany
-    private List<Autor> authors;
     @OneToOne
     private Categoria category;
 
@@ -132,12 +130,5 @@ public class Book{
     }
     public void setCategory(Categoria category) {
         this.category = category;
-    }
-
-    public List<Autor> getAuthors() {
-        return authors;
-    }
-    public void setAuthors(List<Autor> authors) {
-        this.authors = authors;
     }
 }

@@ -110,24 +110,6 @@ public class AccesoLibro implements AccesoLibroInterfaz{
     }
 
     @Override
-    public List<Book> findBooksByAuthor(Autor autor) {
-
-        List<Book> booksByAuthor = new ArrayList<>();
-
-        long countBooks = count();
-        if (countBooks == 0){
-            return null;
-        }
-
-        for(Book b : findAllBooks()){
-            if (b.getAuthors().contains(autor)){
-                booksByAuthor.add(b);
-            }
-        }
-        return booksByAuthor;
-    }
-
-    @Override
     public List<Book> findBooksByCategory(Categoria categoria) {
         return List.of();
     }

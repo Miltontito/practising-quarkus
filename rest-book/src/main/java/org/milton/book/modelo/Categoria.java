@@ -37,13 +37,4 @@ public class Categoria {
     public void setParentCategoria(Categoria parentCategoria) {
         this.parentCategoria = parentCategoria;
     }
-
-    /*
-    public Set<Comentario> getSubCategoria() {
-        return subCategoria;
-    }
-    public void setSubCategoria(Set<Comentario> subCategoria) {
-        this.subCategoria = subCategoria;
-    }*/
-
 }

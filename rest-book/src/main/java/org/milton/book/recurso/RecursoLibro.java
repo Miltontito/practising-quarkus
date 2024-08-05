@@ -17,7 +17,9 @@ import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
+import org.milton.book.servicio.ServicioAutor;
 import org.milton.book.servicio.ServicioLibro;
+import org.milton.book.transferible.TransferibleAutor;
 import org.milton.book.transferible.TransferibleLibro;
 
 import java.net.URI;

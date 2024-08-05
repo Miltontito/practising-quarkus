@@ -98,8 +98,6 @@ public class TransferibleLibro{
         this.id = id;
     }
 
-
-
     public List<TransferibleAutor> getAuthors() {
         return authors;
     }

@@ -22,7 +22,6 @@ public interface AccesoLibroInterfaz extends PanacheRepository<Book> {
     Book fallbackPersistBook(Book book) throws FileNotFoundException;
 
     // V0.1
-    List<Book> findBooksByAuthor(Autor autor);
     List<Book> findBestBooks(Double punctuation);
     List<Book> findBooksByCategory(Categoria categoria);
 }

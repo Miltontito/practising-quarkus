@@ -20,6 +20,7 @@ public class Autor {
     private String apellido;
     @Column
     private String nacionalidad;
+
     @ManyToOne
     private Book book;
 

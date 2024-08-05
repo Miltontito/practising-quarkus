@@ -24,8 +24,6 @@ public interface TransformadorLibro {
     @Mapping(source = "smallImageUrl", target = "smallImageUrl")
     @Mapping(source = "mediumImageUrl", target = "mediumImageUrl")
     @Mapping(source = "description", target = "description")
-
-    @Mapping(source = "authors", target = "authors")
     @Mapping(source = "category", target = "category")
     TransferibleLibro ToLibroDTO(Book book);
 
