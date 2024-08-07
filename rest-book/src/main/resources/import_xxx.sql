@@ -34,6 +34,16 @@ INSERT INTO Book (id, category_id, title, isbn_13, isbn_10, year_Of_Publication,
 (9, 1,'Crime and Punishment', '9780486415871', '0486415872', 1866, 430, 9, 13.99, 'http://example.com/small9.jpg', 'http://example.com/medium9.jpg', 'A novel about the mental anguish and moral dilemmas of an impoverished ex-student.'),
 (10, 1,'One Hundred Years of Solitude', '9780060883287', '0060883286', 1967, 417, 10, 18.99, 'http://example.com/small10.jpg', 'http://example.com/medium10.jpg', 'A multi-generational story of the Buendía family and the town of Macondo.');
 
+-- Insert data into Comentario
+INSERT INTO Comment (id, email_creador, text, score) VALUES
+(1, 'lector1@example.com', 'Una obra maestra de la ciencia ficción.', 9),
+(2, 'lector2@example.com', 'Un clásico imperdible de la literatura latinoamericana.', 10),
+(3, 'lector3@example.com', 'Una de las mejores novelas de ciencia ficción jamás escritas.', 10),
+(4, 'lector4@example.com', 'Un mundo increíblemente detallado y personajes inolvidables.', 10),
+(5, 'lector5@example.com', 'Un análisis profundo y detallado de la guerra.', 8),
+(6, 'lector6@example.com', 'Inspirador y fascinante, una mirada a la mente de un genio.', 7);
+
+
 -- Insertando datos en la tabla de unión author_book
 INSERT INTO author_book (book_id, author_id) VALUES
 (1, 1), -- J.K. Rowling

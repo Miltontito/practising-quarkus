@@ -19,19 +19,20 @@ public class ServicioCategory {
         return TransformadorCategory.INSTANCE.toCategoryDTOList(acceso.findAllCategories());
     }
 
-    public TransferibleCategory findCategoryById(){
-        return null;
+    public TransferibleCategory findCategoryById(Long id){
+        return TransformadorCategory.INSTANCE.toCategoryDTO(acceso.findCategoryById(id));
     }
 
-    public TransferibleCategory persistCategoryById(){
-        return null;
+    public TransferibleCategory persistCategory(TransferibleCategory transferibleCategory){
+        return TransformadorCategory.INSTANCE.toCategoryDTO(acceso.persistCategory(TransformadorCategory.INSTANCE.toEntity(transferibleCategory)));
     }
 
-    public TransferibleCategory updateCategory(){
-        return null;
+    public TransferibleCategory updateCategory(TransferibleCategory transferibleCategory){
+        return TransformadorCategory.INSTANCE.toCategoryDTO(acceso.updateCategory(TransformadorCategory.INSTANCE.toEntity(transferibleCategory)));
     }
 
-    public void deleteCategory(){
+    public void deleteCategory(Long id){
+        acceso.deleteCategoryById(id);
     }
 
 }

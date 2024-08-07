@@ -4,41 +4,42 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
-import org.milton.book.modelo.Category;
+import org.milton.book.modelo.Author;
+import org.milton.book.modelo.Comment;
 
 import java.util.List;
 
 @ApplicationScoped
-@Transactional(Transactional.TxType.REQUIRED)
-public class AccesoCategory implements AccesoCategoryInteface{
+public class AccesoComment implements AccesoCommentInterface{
 
     @Inject
     EntityManager em;
 
     @Override
     @Transactional(Transactional.TxType.SUPPORTS)
-    public List<Category> findAllCategories() {
+    public List<Comment> findAllComments() {
         return listAll();
     }
 
     @Override
-    public Category findCategoryById(Long id) {
+    @Transactional(Transactional.TxType.SUPPORTS)
+    public Comment findCommentById(Long id) {
         return findById(id);
     }
 
     @Override
-    public Category persistCategory(Category category) {
-        persist(category);
-        return category;
+    public Comment persistComment(Comment comment) {
+        persist(comment);
+        return comment;
     }
 
     @Override
-    public Category updateCategory(Category category) {
-        return em.merge(category);
+    public Comment updateComment(Comment comment) {
+        return em.merge(comment);
     }
 
     @Override
-    public void deleteCategoryById(Long id) {
+    public void deleteComment(Long id) {
         deleteById(id);
     }
 }

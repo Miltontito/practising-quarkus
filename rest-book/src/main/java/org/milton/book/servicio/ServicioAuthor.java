@@ -32,7 +32,7 @@ public class ServicioAuthor {
     }
 
     public void deleteAuthor(Long id){
-        acceso.deleteById(id);
+        acceso.deleteAuthor(id);
     }
 
 }

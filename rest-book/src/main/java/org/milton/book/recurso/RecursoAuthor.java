@@ -18,8 +18,6 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.jboss.logging.Logger;
 import org.milton.book.servicio.ServicioAuthor;
 import org.milton.book.transferible.TransferibleAuthor;
-import org.milton.book.transferible.TransferibleLibro;
-
 import java.net.URI;
 import java.util.List;
 
@@ -69,9 +67,9 @@ public class RecursoAuthor {
             .APPLICATION_JSON, schema = @Schema(implementation = TransferibleAuthor.class)))
     @APIResponse(responseCode = "404", description = "The author is not found for the given identifier")
     //----------------------| Metrics |----------------------
-    @Counted(name = "countGetBook", description = "Counts how many times the GetAuthor " +
+    @Counted(name = "countGetAuthor", description = "Counts how many times the GetAuthor " +
             "method has been invoked")
-    @Timed(name = "timeGetBook", description = "Times how long it takes to invoke the " +
+    @Timed(name = "timeGetAuthor", description = "Times how long it takes to invoke the " +
             "GetAuthor method", unit = MetricUnits.MILLISECONDS)
     //----------------------| Peticion GET -> retorna el autor segun su id |----------------------
     @GET
