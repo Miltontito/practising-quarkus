@@ -5,6 +5,7 @@ package org.milton.book.acceso;
 /* Acceso a los datos de la base de datos, acá se encuentras cosas como actualizar o eliminar, persistir, etc. */
 // Se utiliza el patrón Repository
 
+import io.quarkus.panache.common.Parameters;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.json.bind.JsonbBuilder;
@@ -98,7 +99,19 @@ public class AccesoLibro implements AccesoLibroInterfaz{
     }
 
 
-    // <-------------------------| V0.1 |------------------------->
+    // ----------------------------------| V0.1 |----------------------------------
+
+    @Override
+    @Transactional(Transactional.TxType.SUPPORTS)
+    public List<Book> findAllBooksByAuthorId(Long id) {
+        return find("SELECT b FROM Book b JOIN b.authors a WHERE a.id = ?1", id).list();
+    }
+
+    @Override
+    @Transactional(Transactional.TxType.SUPPORTS)
+    public List<Book> findBestBooks(Integer score) {
+        return find("SELECT b FROM Book b WHERE b.rank > ?1", score).list();
+    }
 
 
 }

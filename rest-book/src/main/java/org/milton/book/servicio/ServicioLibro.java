@@ -54,4 +54,13 @@ public class ServicioLibro {
         acceso.deleteBook(id);
     }
 
+    // ----------------------------------| V0.1 |----------------------------------
+    public List<TransferibleLibro> findAllBooksByAuthorId(Long id){
+        return TransformadorLibro.INSTANCE.toLibroDTOList(acceso.findAllBooksByAuthorId(id));
+    }
+
+    public List<TransferibleLibro> findBestBooks(Integer score){
+        return TransformadorLibro.INSTANCE.toLibroDTOList(acceso.findBestBooks(score));
+    }
+
 }

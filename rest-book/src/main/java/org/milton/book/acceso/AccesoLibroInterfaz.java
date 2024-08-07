@@ -20,7 +20,8 @@ public interface AccesoLibroInterfaz extends PanacheRepository<Book> {
     void deleteBook(Long id);
     Book fallbackPersistBook(Book book) throws FileNotFoundException;
 
-    // V0.1
-    //List<Book> findBestBooks(Double punctuation);
+    // ----------------------------------| V0.1 |----------------------------------
     //List<Book> findBooksByCategory(Categoria categoria);
+    List<Book> findAllBooksByAuthorId(Long id);
+    List<Book> findBestBooks(Integer score);
 }

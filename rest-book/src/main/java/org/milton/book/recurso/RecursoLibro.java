@@ -175,4 +175,21 @@ public class RecursoLibro {
         LOGGER.debug("Book deleted with " + id);
         return Response.noContent().build();
     }
+
+    // ----------------------------------| V0.1 |----------------------------------
+
+    @GET
+    @Path("/author/{id}")
+    public Response getAuthorBooks(@PathParam("id") Long id){
+        List<TransferibleLibro> transferibleLibroList = service.findAllBooksByAuthorId(id);
+        LOGGER.debug("Total number of books " + transferibleLibroList.size());
+        return Response.ok(transferibleLibroList).build();
+    }
+
+    @GET
+    @Path("/best/{score}")
+    public Response getBestBooks(@PathParam("score") Integer score){
+        List<TransferibleLibro> transferibleLibroList = service.findBestBooks(score);
+        return  Response.ok(transferibleLibroList).build();
+    }
 }
