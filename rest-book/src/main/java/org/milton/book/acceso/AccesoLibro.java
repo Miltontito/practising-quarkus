@@ -14,14 +14,11 @@ import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.jboss.logging.Logger;
 import org.milton.book.client.IsbnNumbers;
 import org.milton.book.client.NumberProxy;
-import org.milton.book.modelo.Autor;
 import org.milton.book.modelo.Book;
-import org.milton.book.modelo.Categoria;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -47,7 +44,7 @@ public class AccesoLibro implements AccesoLibroInterfaz{
         book.setIsbn13(isbnNumbers.getIsbn13());
         book.setIsbn10(isbnNumbers.getIsbn10());
 
-        em.persist(book);
+        persist(book);
 
         LOGGER.debug("Persisting Book...");
         return book;
@@ -81,7 +78,7 @@ public class AccesoLibro implements AccesoLibroInterfaz{
     @Transactional(Transactional.TxType.SUPPORTS)
     public List<Book> findAllBooks() {
         LOGGER.debug("Listing All Books...");
-        return listAll();
+        return em.createQuery("SELECT b FROM Book b", Book.class).getResultList();
     }
 
     @Override
@@ -102,17 +99,6 @@ public class AccesoLibro implements AccesoLibroInterfaz{
 
 
     // <-------------------------| V0.1 |------------------------->
-
-
-    @Override
-    public List<Book> findBestBooks(Double punctuation) {
-        return List.of();
-    }
-
-    @Override
-    public List<Book> findBooksByCategory(Categoria categoria) {
-        return List.of();
-    }
 
 
 }

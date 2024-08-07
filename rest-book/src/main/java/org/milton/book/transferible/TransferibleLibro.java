@@ -24,8 +24,8 @@ public class TransferibleLibro{
     private URL mediumImageUrl;
     private String description;
 
-    private List<TransferibleAutor> authors;
-    private TransferibleCategoria category;
+    private List<TransferibleAuthor> authors;
+    private TransferibleCategory category;
     //---------------------| Getters |---------------------
 
     public @NotNull String getTitle() {
@@ -61,6 +61,7 @@ public class TransferibleLibro{
     public Long getId() {
         return id;
     }
+
 
     //---------------------| Setters |---------------------
 
@@ -98,16 +99,19 @@ public class TransferibleLibro{
         this.id = id;
     }
 
-    public List<TransferibleAutor> getAuthors() {
+    public List<TransferibleAuthor> getAuthors() {
         return authors;
     }
-    public void setAuthors(List<TransferibleAutor> authors) {
+
+    public void setAuthors(List<TransferibleAuthor> authors) {
         this.authors = authors;
     }
-    public TransferibleCategoria getCategory() {
+
+    public TransferibleCategory getCategory() {
         return category;
     }
-    public void setCategory(TransferibleCategoria category) {
+
+    public void setCategory(TransferibleCategory category) {
         this.category = category;
     }
 }

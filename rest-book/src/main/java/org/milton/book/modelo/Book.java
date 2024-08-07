@@ -47,9 +47,17 @@ public class Book{
     @Size(min = 1, max = 10000)
     private String description;
 
-    @OneToOne
-    private Categoria category;
+    @ManyToMany
+    @JoinTable(
+            name = "author_book",
+            joinColumns = @JoinColumn(name = "book_id"),
+            inverseJoinColumns = @JoinColumn(name = "author_id")
+    )
+    private List<Author> authors;
 
+    @ManyToOne
+    @JoinColumn
+    private Category category;
 
     //---------------------| Getters |---------------------
 
@@ -123,12 +131,19 @@ public class Book{
         this.id = id;
     }
 
+    public List<Author> getAuthors() {
+        return authors;
+    }
 
+    public void setAuthors(List<Author> authors) {
+        this.authors = authors;
+    }
 
-    public Categoria getCategory() {
+    public Category getCategory() {
         return category;
     }
-    public void setCategory(Categoria category) {
+
+    public void setCategory(Category category) {
         this.category = category;
     }
 }

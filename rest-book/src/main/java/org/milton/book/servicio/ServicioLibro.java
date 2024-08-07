@@ -6,7 +6,6 @@ import org.eclipse.microprofile.faulttolerance.Fallback;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import jakarta.transaction.Transactional;
 import org.milton.book.transferible.TransferibleLibro;
 import org.milton.book.transformador.TransformadorLibro;
 
@@ -22,12 +21,12 @@ public class ServicioLibro {
     //Persists a given book
     public TransferibleLibro persistBook(TransferibleLibro transferibleLibro) {
         //------------------------| toLibroDTO(Libro) -> DTO |------------------------
-        return TransformadorLibro.INSTANCE.ToLibroDTO(acceso.persistBook(TransformadorLibro.INSTANCE.toEntity(transferibleLibro)));
+        return TransformadorLibro.INSTANCE.toLibroDTO(acceso.persistBook(TransformadorLibro.INSTANCE.toEntity(transferibleLibro)));
     }
 
     @Fallback(fallbackMethod = "fallbackPersistBook")
     public TransferibleLibro fallbackPersistBook(TransferibleLibro transferibleLibro) throws FileNotFoundException {
-        return TransformadorLibro.INSTANCE.ToLibroDTO(acceso.fallbackPersistBook(TransformadorLibro.INSTANCE.toEntity(transferibleLibro)));
+        return TransformadorLibro.INSTANCE.toLibroDTO(acceso.fallbackPersistBook(TransformadorLibro.INSTANCE.toEntity(transferibleLibro)));
     }
 
     //List of all books
@@ -37,17 +36,17 @@ public class ServicioLibro {
 
     //Finds the book by his id
     public TransferibleLibro findBookById(Long id) {
-        return TransformadorLibro.INSTANCE.ToLibroDTO(acceso.findBookById(id));
+        return TransformadorLibro.INSTANCE.toLibroDTO(acceso.findBookById(id));
     }
 
     //Finds a random book
     public TransferibleLibro findRandomBook() {
-         return TransformadorLibro.INSTANCE.ToLibroDTO(acceso.findRandomBook());
+         return TransformadorLibro.INSTANCE.toLibroDTO(acceso.findRandomBook());
     }
 
     //Updates the given book
     public TransferibleLibro updateBook(TransferibleLibro transferibleLibro) {
-        return TransformadorLibro.INSTANCE.ToLibroDTO(acceso.updateBook(TransformadorLibro.INSTANCE.toEntity(transferibleLibro)));
+        return TransformadorLibro.INSTANCE.toLibroDTO(acceso.updateBook(TransformadorLibro.INSTANCE.toEntity(transferibleLibro)));
     }
 
     //Deletes the given book through his id

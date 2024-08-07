@@ -3,20 +3,21 @@ package org.milton.book.transformador;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.MappingConstants;
 import org.mapstruct.factory.Mappers;
 import org.milton.book.modelo.Book;
 import org.milton.book.transferible.TransferibleLibro;
 
 import java.util.List;
 
-@Mapper(componentModel = MappingConstants.ComponentModel.JAKARTA)
+@Mapper
 public interface TransformadorLibro {
     TransformadorLibro INSTANCE = Mappers.getMapper(TransformadorLibro.class);
 
     //Entidad a DTO
     @Mapping(source = "id", target = "id")
     @Mapping(source = "title", target = "title")
+    @Mapping(source = "isbn13", target = "isbn13")
+    @Mapping(source = "isbn10", target = "isbn10")
     @Mapping(source = "yearOfPublication", target = "yearOfPublication")
     @Mapping(source = "nbOfPages", target = "nbOfPages")
     @Mapping(source = "rank", target = "rank")
@@ -24,8 +25,10 @@ public interface TransformadorLibro {
     @Mapping(source = "smallImageUrl", target = "smallImageUrl")
     @Mapping(source = "mediumImageUrl", target = "mediumImageUrl")
     @Mapping(source = "description", target = "description")
+
+    @Mapping(source = "authors", target = "authors")
     @Mapping(source = "category", target = "category")
-    TransferibleLibro ToLibroDTO(Book book);
+    TransferibleLibro toLibroDTO(Book book);
 
     //DTO a entidad
     @InheritInverseConfiguration
