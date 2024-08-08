@@ -63,4 +63,8 @@ public class ServicioLibro {
         return TransformadorLibro.INSTANCE.toLibroDTOList(acceso.findBestBooks(score));
     }
 
+    public List<TransferibleLibro> findBooksByCategory(String category){
+        return TransformadorLibro.INSTANCE.toLibroDTOList(acceso.findBooksByCategory(category));
+    }
+
 }

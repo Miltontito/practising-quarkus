@@ -16,6 +16,7 @@ import org.jboss.logging.Logger;
 import org.milton.book.client.IsbnNumbers;
 import org.milton.book.client.NumberProxy;
 import org.milton.book.modelo.Book;
+import org.milton.book.modelo.Category;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -79,7 +80,7 @@ public class AccesoLibro implements AccesoLibroInterfaz{
     @Transactional(Transactional.TxType.SUPPORTS)
     public List<Book> findAllBooks() {
         LOGGER.debug("Listing All Books...");
-        return em.createQuery("SELECT b FROM Book b", Book.class).getResultList();
+        return em.createQuery("FROM Book", Book.class).getResultList();
     }
 
     @Override
@@ -114,4 +115,14 @@ public class AccesoLibro implements AccesoLibroInterfaz{
     }
 
 
+    //No devuelve todos los niveles, solo el primer nivel.
+    @Override
+    @Transactional(Transactional.TxType.SUPPORTS)
+    public List<Book> findBooksByCategory(String category){
+        // FROM retorna todas las clases de la tabla
+
+        return find("SELECT b FROM Book b WHERE b.category.id IN " +
+                "(SELECT c.id FROM Category c WHERE c.name = ?1 " +
+                "OR c.id IN (SELECT sc.id FROM Category sc WHERE sc.parentCategory.id = (SELECT c2.id FROM Category c2 WHERE c2.name = ?1)))", category).list();
+    }
 }

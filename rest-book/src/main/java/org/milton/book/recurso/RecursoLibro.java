@@ -192,4 +192,12 @@ public class RecursoLibro {
         List<TransferibleLibro> transferibleLibroList = service.findBestBooks(score);
         return  Response.ok(transferibleLibroList).build();
     }
+
+    //Retorna todos los libros según su categoría, y a su vez, retorna todos los libros según su subcategoría
+    @GET
+    @Path("/category/{name}")
+    public Response getCategoryBooks(@PathParam("name") String category){
+        List<TransferibleLibro> transferibleLibroList = service.findBooksByCategory(category);
+        return Response.ok(transferibleLibroList).build();
+    }
 }

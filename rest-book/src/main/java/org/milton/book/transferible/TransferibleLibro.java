@@ -25,7 +25,8 @@ public class TransferibleLibro{
     private String description;
 
     private List<TransferibleAuthor> authors;
-    private TransferibleCategory category;
+    private String category;
+    private String parentCategory;
     //---------------------| Getters |---------------------
 
     public @NotNull String getTitle() {
@@ -107,11 +108,19 @@ public class TransferibleLibro{
         this.authors = authors;
     }
 
-    public TransferibleCategory getCategory() {
+    public String getCategory() {
         return category;
     }
 
-    public void setCategory(TransferibleCategory category) {
+    public void setCategory(String category) {
         this.category = category;
+    }
+
+    public String getParentCategory() {
+        return parentCategory;
+    }
+
+    public void setParentCategory(String parentCategory) {
+        this.parentCategory = parentCategory;
     }
 }

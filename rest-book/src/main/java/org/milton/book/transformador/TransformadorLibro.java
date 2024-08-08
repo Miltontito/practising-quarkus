@@ -27,7 +27,8 @@ public interface TransformadorLibro {
     @Mapping(source = "description", target = "description")
 
     @Mapping(source = "authors", target = "authors")
-    @Mapping(source = "category", target = "category")
+    @Mapping(source = "category.name", target = "category")
+    @Mapping(source = "category.parentCategory.name", target = "parentCategory")
     TransferibleLibro toLibroDTO(Book book);
 
     //DTO a entidad
