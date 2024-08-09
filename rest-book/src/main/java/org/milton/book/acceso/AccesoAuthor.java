@@ -25,6 +25,9 @@ public class AccesoAuthor implements AccesoAuthorInterface{
     @Override
     @Transactional(Transactional.TxType.SUPPORTS)
     public Author findAuthorById(Long id) {
+        if (id == null){
+            return null;
+        }
         return findById(id);
     }
 

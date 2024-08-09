@@ -11,7 +11,7 @@ public class TransferibleCategory {
     private Long id;
     @NotNull
     private String name;
-    private Category parentCategory;
+    private String parentCategory;
 
 
     public Long getId() {
@@ -26,11 +26,12 @@ public class TransferibleCategory {
     public void setName(@NotNull String name) {
         this.name = name;
     }
-    public Category getParentCategory() {
+
+    public String getParentCategory() {
         return parentCategory;
     }
 
-    public void setParentCategory(Category parentCategory) {
+    public void setParentCategory(String parentCategory) {
         this.parentCategory = parentCategory;
     }
 }

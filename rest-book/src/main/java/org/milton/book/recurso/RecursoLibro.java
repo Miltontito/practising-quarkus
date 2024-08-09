@@ -125,9 +125,7 @@ public class RecursoLibro {
             "the createBook method", unit = MetricUnits.MILLISECONDS)
     //----------------------| Peticion POST -> Crea un libro |----------------------
     @POST
-    public Response createBook(@RequestBody(required = true,
-                                content = @Content(mediaType = MediaType.APPLICATION_JSON,
-                                schema = @Schema(implementation = TransferibleLibro.class)))
+    public Response createBook(@RequestBody(required = true, content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = TransferibleLibro.class)))
                                 @Valid TransferibleLibro transferibleLibro,
                                 @Context UriInfo uriInfo) {
         transferibleLibro = service.persistBook(transferibleLibro);

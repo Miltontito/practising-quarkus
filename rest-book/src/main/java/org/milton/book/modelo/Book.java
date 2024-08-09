@@ -22,7 +22,7 @@ public class Book{
 
     //---------------------| Entidad |---------------------
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
@@ -47,7 +47,7 @@ public class Book{
     @Size(min = 1, max = 10000)
     private String description;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "author_book",
             joinColumns = @JoinColumn(name = "book_id"),

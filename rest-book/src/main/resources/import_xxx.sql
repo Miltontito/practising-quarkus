@@ -19,6 +19,8 @@ INSERT INTO Category (id, name, parentCategory_id) VALUES
 (18, 'Psicología', 2),
 (19, 'Economía', 2),
 (20, 'Política', 2);
+SELECT setval('Category_id_seq', 20);
+
 
 INSERT INTO Author (id, name, surName, nationality) VALUES
 (1, 'J.K.', 'Rowling', 'British'),
@@ -41,6 +43,7 @@ INSERT INTO Author (id, name, surName, nationality) VALUES
 (18, 'Edgar', 'Allan Poe', 'American'),
 (19, 'Homer', 'Ancient', 'Greek'),
 (20, 'Dante', 'Alighieri', 'Italian');
+SELECT setval('Author_id_seq', 20);
 
 INSERT INTO Book (id, category_id, title, isbn_13, isbn_10, year_Of_Publication, nb_Of_Pages, rank, price, small_Image_Url, medium_Image_Url, description) VALUES
 (1, 8, 'Harry Potter and the Philosophers Stone', '9780747532699', '0747532699', 1997, 223, 10, 19.99, 'http://example.com/small1.jpg', 'http://example.com/medium1.jpg', 'First book in the Harry Potter series.'),
@@ -63,6 +66,7 @@ INSERT INTO Book (id, category_id, title, isbn_13, isbn_10, year_Of_Publication,
 (18, 6, 'The Raven', '9780486266855', '0486266850', 1845, 64, 8, 5.99, 'http://example.com/small18.jpg', 'http://example.com/medium18.jpg', 'A narrative poem about a mysterious ravens visit to a grieving man.'),
 (19, 19, 'The Iliad', '9780140445923', '0140445927', -750, 704, 10, 12.99, 'http://example.com/small19.jpg', 'http://example.com/medium19.jpg', 'An epic poem about the Trojan War.'),
 (20, 16, 'The Divine Comedy', '9780140448955', '0140448950', 1320, 798, 10, 15.99, 'http://example.com/small20.jpg', 'http://example.com/medium20.jpg', 'An epic poem about the journey through Hell, Purgatory, and Paradise.');
+SELECT setval('Book_id_seq', 20);
 
 INSERT INTO Comment (id, email_creador, text, score) VALUES
 (1, 'lector1@example.com', 'Una obra maestra de la ciencia ficción.', 9),
@@ -85,7 +89,7 @@ INSERT INTO Comment (id, email_creador, text, score) VALUES
 (18, 'lector18@example.com', 'Un relato impresionante de la condición humana.', 9),
 (19, 'lector19@example.com', 'Una exploración aterradora del miedo y la locura.', 8),
 (20, 'lector20@example.com', 'Un épico relato de guerra y honor.', 9);
-
+SELECT setval('Comment_id_seq', 20);
 
 INSERT INTO author_book (book_id, author_id) VALUES
 (1, 1), -- (Harry Potter, J.K. Rowling)

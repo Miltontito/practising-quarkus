@@ -27,6 +27,7 @@ public class AccesoCategory implements AccesoCategoryInteface{
     }
 
     @Override
+    @Transactional
     public Category persistCategory(Category category) {
         persist(category);
         return category;

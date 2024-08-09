@@ -28,6 +28,7 @@ public class AccesoComment implements AccesoCommentInterface{
     }
 
     @Override
+    @Transactional
     public Comment persistComment(Comment comment) {
         persist(comment);
         return comment;

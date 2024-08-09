@@ -5,7 +5,6 @@ package org.milton.book.acceso;
 /* Acceso a los datos de la base de datos, acá se encuentras cosas como actualizar o eliminar, persistir, etc. */
 // Se utiliza el patrón Repository
 
-import io.quarkus.panache.common.Parameters;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.json.bind.JsonbBuilder;
@@ -16,7 +15,6 @@ import org.jboss.logging.Logger;
 import org.milton.book.client.IsbnNumbers;
 import org.milton.book.client.NumberProxy;
 import org.milton.book.modelo.Book;
-import org.milton.book.modelo.Category;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -39,12 +37,15 @@ public class AccesoLibro implements AccesoLibroInterfaz{
     NumberProxy numberProxy;
 
     @Override
+    @Transactional
     public Book persistBook(Book book) {
 
         //The book microservice invokes the number microservice
         IsbnNumbers isbnNumbers = numberProxy.generateIsbnNumbers();
         book.setIsbn13(isbnNumbers.getIsbn13());
         book.setIsbn10(isbnNumbers.getIsbn10());
+
+
 
         persist(book);
 
@@ -119,8 +120,6 @@ public class AccesoLibro implements AccesoLibroInterfaz{
     @Override
     @Transactional(Transactional.TxType.SUPPORTS)
     public List<Book> findBooksByCategory(String category){
-        // FROM retorna todas las clases de la tabla
-
         return find("SELECT b FROM Book b WHERE b.category.id IN " +
                 "(SELECT c.id FROM Category c WHERE c.name = ?1 " +
                 "OR c.id IN (SELECT sc.id FROM Category sc WHERE sc.parentCategory.id = (SELECT c2.id FROM Category c2 WHERE c2.name = ?1)))", category).list();

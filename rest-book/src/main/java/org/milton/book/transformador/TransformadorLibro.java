@@ -33,6 +33,7 @@ public interface TransformadorLibro {
 
     //DTO a entidad
     @InheritInverseConfiguration
+    @Mapping(target = "category", ignore = true)
     Book toEntity(TransferibleLibro transferibleLibro);
 
     //Listas de DTOs a listas de Entidades

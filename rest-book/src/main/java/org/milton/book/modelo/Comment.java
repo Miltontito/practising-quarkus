@@ -1,21 +1,22 @@
 package org.milton.book.modelo;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Comment {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotNull
     private String email_creador;
-    @NotNull
+
+    @Column(length = 10000)
+    @Size(min = 1, max = 10000)
     private String text;
     @Min(1) @Max(10)
     private Double score;

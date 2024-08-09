@@ -1,8 +1,4 @@
-- Los Libros deben incluir al Autor.
-
-- El DTO del libro solo debe incluir el nombre de la categoría, más no el Transferible.
-
 - La creación y actualización de libros debe permitir enviar a los Autores y Categorias.
 	- No necesariamente deben ser nuevos.
-	
-- Cuando retornamos los libros por su categoría, a su vez debemos retornar todos los libros de las subcategorias, es decir, retornarmos High fantasy entonces retornamos Fantasía y por ultimo Ficción. 
+
+- Cabe resaltar que a la hora de insertar categorias, al insertar una subcategoria no se verá hecha la conexión con ninguna categoria existente, pues esta está siendo ignorada en el mapper, solucionar eso.
