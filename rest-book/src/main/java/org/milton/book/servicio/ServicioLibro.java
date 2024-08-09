@@ -24,23 +24,12 @@ public class ServicioLibro {
     @Inject
     AccesoAuthorInterface accesoAuthor;
 
+
     public TransferibleLibro persistBook(TransferibleLibro transferibleLibro) {
+        
+        // ----------------------------------| V0.1 |----------------------------------
+        List<Long> author_ids = getAuthorIDs(transferibleLibro);
 
-        // buscamos los Id de los autores enviados por transferibleLibro
-        List<Long> author_ids = new ArrayList<>();
-        for (TransferibleAuthor autor : transferibleLibro.getAuthors()){
-            if (autor.getId() != null){
-                // Si el id enviado no está vacío, lo añade.
-                author_ids.add(autor.getId());
-            }
-            else{
-                // Si el id está vacio lo persiste.
-                TransferibleAuthor autorPersistido = TransformadorAuthor.INSTANCE.toAuthorDTO(accesoAuthor.persistAuthor(TransformadorAuthor.INSTANCE.toEntity(autor)));
-                author_ids.add(autorPersistido.getId());
-            }
-        }
-
-        // devolvemos la lista de IDs de los autores
         return TransformadorLibro.INSTANCE.toLibroDTO(acceso.persistBook(TransformadorLibro.INSTANCE.toEntity(transferibleLibro), author_ids));
     }
 
@@ -85,6 +74,20 @@ public class ServicioLibro {
 
     public List<TransferibleLibro> findBooksByCategory(String category){
         return TransformadorLibro.INSTANCE.toLibroDTOList(acceso.findBooksByCategory(category));
+    }
+
+    public List<Long> getAuthorIDs(TransferibleLibro transferibleLibro){
+        List<Long> author_ids = new ArrayList<>();
+        for (TransferibleAuthor autor : transferibleLibro.getAuthors()){
+            if (autor.getId() != null){
+                author_ids.add(autor.getId());
+            }
+            else{
+                TransferibleAuthor autorPersistido = TransformadorAuthor.INSTANCE.toAuthorDTO(accesoAuthor.persistAuthor(TransformadorAuthor.INSTANCE.toEntity(autor)));
+                author_ids.add(autorPersistido.getId());
+            }
+        }
+        return author_ids;
     }
 
 }

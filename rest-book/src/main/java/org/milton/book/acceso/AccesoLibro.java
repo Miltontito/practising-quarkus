@@ -46,7 +46,6 @@ public class AccesoLibro implements AccesoLibroInterfaz{
     //requiere un autor, puede ser null en ese caso lo crea
     public Book persistBook(Book book, List<Long> author_ids) {
 
-        //Asigna los autores de las ids enviadas por una lista
         List<Author> authorList = new ArrayList<>();
         for(Long id : author_ids){
             authorList.add(accesoAuthor.findAuthorById(id));
