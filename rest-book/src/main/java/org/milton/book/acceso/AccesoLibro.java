@@ -14,11 +14,13 @@ import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.jboss.logging.Logger;
 import org.milton.book.client.IsbnNumbers;
 import org.milton.book.client.NumberProxy;
+import org.milton.book.modelo.Author;
 import org.milton.book.modelo.Book;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -30,6 +32,9 @@ public class AccesoLibro implements AccesoLibroInterfaz{
     Logger LOGGER;
 
     @Inject
+    AccesoAuthorInterface accesoAuthor;
+
+    @Inject
     EntityManager em;
 
     @Inject
@@ -38,13 +43,20 @@ public class AccesoLibro implements AccesoLibroInterfaz{
 
     @Override
     @Transactional
-    public Book persistBook(Book book) {
+    //requiere un autor, puede ser null en ese caso lo crea
+    public Book persistBook(Book book, List<Long> author_ids) {
+
+        //Asigna los autores de las ids enviadas por una lista
+        List<Author> authorList = new ArrayList<>();
+        for(Long id : author_ids){
+            authorList.add(accesoAuthor.findAuthorById(id));
+        }
+        book.setAuthors(authorList);
 
         //The book microservice invokes the number microservice
         IsbnNumbers isbnNumbers = numberProxy.generateIsbnNumbers();
         book.setIsbn13(isbnNumbers.getIsbn13());
         book.setIsbn10(isbnNumbers.getIsbn10());
-
 
 
         persist(book);

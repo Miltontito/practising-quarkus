@@ -1,15 +1,19 @@
 package org.milton.book.servicio;
 
+import org.milton.book.acceso.AccesoAuthorInterface;
 import org.milton.book.acceso.AccesoLibroInterfaz;
 
 import org.eclipse.microprofile.faulttolerance.Fallback;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import org.milton.book.transferible.TransferibleAuthor;
 import org.milton.book.transferible.TransferibleLibro;
+import org.milton.book.transformador.TransformadorAuthor;
 import org.milton.book.transformador.TransformadorLibro;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 
 @ApplicationScoped
@@ -17,10 +21,27 @@ public class ServicioLibro {
 
     @Inject
     AccesoLibroInterfaz acceso;
+    @Inject
+    AccesoAuthorInterface accesoAuthor;
 
-    //Persists a given book
     public TransferibleLibro persistBook(TransferibleLibro transferibleLibro) {
-        return TransformadorLibro.INSTANCE.toLibroDTO(acceso.persistBook(TransformadorLibro.INSTANCE.toEntity(transferibleLibro)));
+
+        // buscamos los Id de los autores enviados por transferibleLibro
+        List<Long> author_ids = new ArrayList<>();
+        for (TransferibleAuthor autor : transferibleLibro.getAuthors()){
+            if (autor.getId() != null){
+                // Si el id enviado no está vacío, lo añade.
+                author_ids.add(autor.getId());
+            }
+            else{
+                // Si el id está vacio lo persiste.
+                TransferibleAuthor autorPersistido = TransformadorAuthor.INSTANCE.toAuthorDTO(accesoAuthor.persistAuthor(TransformadorAuthor.INSTANCE.toEntity(autor)));
+                author_ids.add(autorPersistido.getId());
+            }
+        }
+
+        // devolvemos la lista de IDs de los autores
+        return TransformadorLibro.INSTANCE.toLibroDTO(acceso.persistBook(TransformadorLibro.INSTANCE.toEntity(transferibleLibro), author_ids));
     }
 
     @Fallback(fallbackMethod = "fallbackPersistBook")
