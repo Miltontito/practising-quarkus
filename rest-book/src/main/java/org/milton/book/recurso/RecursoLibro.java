@@ -149,7 +149,7 @@ public class RecursoLibro {
     @PUT
     public Response updateBook(@RequestBody(required = true,
                                 content = @Content(mediaType = MediaType.APPLICATION_JSON,
-                                schema = @Schema(implementation = TransferibleLibro.class)))
+                                schema = @Schema(implementation = TransferibleCreateUpdateLibro.class)))
                                 @Valid TransferibleCreateUpdateLibro transferibleLibro) {
 
         transferibleLibro = service.updateBook(transferibleLibro);
