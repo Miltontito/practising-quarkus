@@ -48,13 +48,17 @@ public class AccesoLibro implements AccesoLibroInterfaz{
     //requiere un autor, puede ser null en ese caso lo crea
     public Book persistBook(Book book, List<Long> author_ids, Long category_id) {
 
-        List<Author> authorList = new ArrayList<>();
-        for(Long id : author_ids){
-            authorList.add(accesoAuthor.findAuthorById(id));
+        if(author_ids != null){
+            List<Author> authorList = new ArrayList<>();
+            for(Long id : author_ids){
+                authorList.add(accesoAuthor.findAuthorById(id));
+            }
+            book.setAuthors(authorList);
         }
-        book.setAuthors(authorList);
 
-        book.setCategory(accesoCategory.findCategoryById(category_id));
+        if(category_id != null){
+            book.setCategory(accesoCategory.findCategoryById(category_id));
+        }
 
         //The book microservice invokes the number microservice
         IsbnNumbers isbnNumbers = numberProxy.generateIsbnNumbers();

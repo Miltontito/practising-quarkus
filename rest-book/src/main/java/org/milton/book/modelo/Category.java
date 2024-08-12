@@ -12,7 +12,7 @@ public class Category {
     @NotNull
     private String name;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn
     private Category parentCategory;
 

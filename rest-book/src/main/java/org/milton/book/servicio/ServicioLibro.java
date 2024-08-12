@@ -36,8 +36,7 @@ public class ServicioLibro {
 
         // ----------------------------------| V0.1 |----------------------------------
         List<Long> author_ids = getAuthorIDs(transferibleLibro);
-        Long category_id = getCategoryId(transferibleLibro);
-
+        Long category_id = getCategoryId(transferibleLibro.getCategory());
         return TransformadorCreateUpdateLIbro.INSTANCE.toLibroDTO(acceso.persistBook(TransformadorCreateUpdateLIbro.INSTANCE.toEntity(transferibleLibro), author_ids, category_id));
     }
 
@@ -62,8 +61,8 @@ public class ServicioLibro {
     }
 
     //Updates the given book
-    public TransferibleLibro updateBook(TransferibleLibro transferibleLibro) {
-        return TransformadorLibro.INSTANCE.toLibroDTO(acceso.updateBook(TransformadorLibro.INSTANCE.toEntity(transferibleLibro)));
+    public TransferibleCreateUpdateLibro updateBook(TransferibleCreateUpdateLibro transferibleLibro) {
+        return TransformadorCreateUpdateLIbro.INSTANCE.toLibroDTO(acceso.updateBook(TransformadorCreateUpdateLIbro.INSTANCE.toEntity(transferibleLibro)));
     }
 
     //Deletes the given book through his id
@@ -84,7 +83,11 @@ public class ServicioLibro {
         return TransformadorLibro.INSTANCE.toLibroDTOList(acceso.findBooksByCategory(category));
     }
 
+    //Pasar metodo al área de Author?
     public List<Long> getAuthorIDs(TransferibleCreateUpdateLibro transferibleLibro){
+        if(transferibleLibro.getAuthors() == null){
+            return null;
+        }
         List<Long> author_ids = new ArrayList<>();
         for (TransferibleAuthor autor : transferibleLibro.getAuthors()){
             if (autor.getId() != null){
@@ -98,18 +101,23 @@ public class ServicioLibro {
         return author_ids;
     }
 
-    public Long getCategoryId(TransferibleCreateUpdateLibro transferibleLibro){
-        Long id = 1L;
-        if(transferibleLibro.getCategory() != null){
-            if(transferibleLibro.getCategory().getId() != null){
-                id = transferibleLibro.getCategory().getId();
+
+    //Pasar metodo al área de Category?
+
+    //Devuelve el id de la tabla con todas las relaciones armadas.
+    public Long getCategoryId(TransferibleCategory transferibleCategory){
+
+        Long categoryId = null;
+        if(transferibleCategory != null){
+            if(transferibleCategory.getId() != null){
+                categoryId = transferibleCategory.getId();
             }
             else{
-                TransferibleCategory persistedCategry = TransformadorCategory.INSTANCE.toCategoryDTO(accesoCategory.persistCategory(TransformadorCategory.INSTANCE.toEntity(transferibleLibro.getCategory())));
-                id = persistedCategry.getId();
+                TransferibleCategory persistedCategory = TransformadorCategory.INSTANCE.toCategoryDTO(accesoCategory.persistCategory(TransformadorCategory.INSTANCE.toEntity(transferibleCategory)));
+                categoryId = persistedCategory.getId();
             }
         }
-        return id;
+        return categoryId;
     }
 
 }

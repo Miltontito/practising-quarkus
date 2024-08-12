@@ -150,7 +150,7 @@ public class RecursoLibro {
     public Response updateBook(@RequestBody(required = true,
                                 content = @Content(mediaType = MediaType.APPLICATION_JSON,
                                 schema = @Schema(implementation = TransferibleLibro.class)))
-                                @Valid TransferibleLibro transferibleLibro) {
+                                @Valid TransferibleCreateUpdateLibro transferibleLibro) {
 
         transferibleLibro = service.updateBook(transferibleLibro);
         LOGGER.debug("Book updated with new valued " + transferibleLibro);
