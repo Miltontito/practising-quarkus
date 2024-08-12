@@ -5,13 +5,13 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 import org.milton.book.modelo.Book;
-import org.milton.book.transferible.TransferibleLibro;
+import org.milton.book.transferible.TransferibleCreateUpdateLibro;
 
 import java.util.List;
 
 @Mapper
-public interface TransformadorLibro {
-    TransformadorLibro INSTANCE = Mappers.getMapper(TransformadorLibro.class);
+public interface TransformadorCreateUpdateLIbro {
+    TransformadorCreateUpdateLIbro INSTANCE = Mappers.getMapper(TransformadorCreateUpdateLIbro.class);
 
     //Entidad a DTO
     @Mapping(source = "id", target = "id")
@@ -25,19 +25,18 @@ public interface TransformadorLibro {
     @Mapping(source = "smallImageUrl", target = "smallImageUrl")
     @Mapping(source = "mediumImageUrl", target = "mediumImageUrl")
     @Mapping(source = "description", target = "description")
+
     @Mapping(source = "authors", target = "authors")
-    @Mapping(source = "category.name", target = "category")
-    @Mapping(source = "category.parentCategory.name", target = "parentCategory")
-    TransferibleLibro toLibroDTO(Book book);
+    @Mapping(source = "category", target = "category")
+    TransferibleCreateUpdateLibro toLibroDTO(Book book);
 
     //DTO a entidad
     @InheritInverseConfiguration
-    @Mapping(target = "category", ignore = true)
-    Book toEntity(TransferibleLibro transferibleLibro);
+    Book toEntity(TransferibleCreateUpdateLibro transferibleCreateUpdateLibro);
 
     //Listas de DTOs a listas de Entidades
-    List<TransferibleLibro> toLibroDTOList(List<Book> bookList);
+    List<TransferibleCreateUpdateLibro> toLibroDTOList(List<Book> bookList);
 
     //Listas de Entidades a listas de DTOs
-    List<Book> toEntityList(List<TransferibleLibro> transferibleLibroList);
+    List<Book> toEntityList(List<TransferibleCreateUpdateLibro> transferibleCreateUpdateLibroList);
 }

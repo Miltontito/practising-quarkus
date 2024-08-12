@@ -16,11 +16,10 @@ public interface TransformadorCategory {
 
     @Mapping(target = "id", source = "id")
     @Mapping(target = "name", source = "name")
-    @Mapping(target = "parentCategory", source = "parentCategory.name")
+    @Mapping(target = "parentCategory", source = "parentCategory")
     TransferibleCategory toCategoryDTO(Category category);
 
     @InheritInverseConfiguration
-    @Mapping(target = "parentCategory", ignore = true)
     Category toEntity(TransferibleCategory transferibleCategory);
 
     List<TransferibleCategory> toCategoryDTOList(List<Category> categoryList);

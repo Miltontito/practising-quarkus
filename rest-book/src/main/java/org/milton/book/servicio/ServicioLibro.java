@@ -1,6 +1,7 @@
 package org.milton.book.servicio;
 
 import org.milton.book.acceso.AccesoAuthorInterface;
+import org.milton.book.acceso.AccesoCategoryInteface;
 import org.milton.book.acceso.AccesoLibroInterfaz;
 
 import org.eclipse.microprofile.faulttolerance.Fallback;
@@ -8,8 +9,12 @@ import org.eclipse.microprofile.faulttolerance.Fallback;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import org.milton.book.transferible.TransferibleAuthor;
+import org.milton.book.transferible.TransferibleCategory;
+import org.milton.book.transferible.TransferibleCreateUpdateLibro;
 import org.milton.book.transferible.TransferibleLibro;
 import org.milton.book.transformador.TransformadorAuthor;
+import org.milton.book.transformador.TransformadorCategory;
+import org.milton.book.transformador.TransformadorCreateUpdateLIbro;
 import org.milton.book.transformador.TransformadorLibro;
 
 import java.io.FileNotFoundException;
@@ -23,14 +28,17 @@ public class ServicioLibro {
     AccesoLibroInterfaz acceso;
     @Inject
     AccesoAuthorInterface accesoAuthor;
+    @Inject
+    AccesoCategoryInteface accesoCategory;
 
 
-    public TransferibleLibro persistBook(TransferibleLibro transferibleLibro) {
-        
+    public TransferibleCreateUpdateLibro persistBook(TransferibleCreateUpdateLibro transferibleLibro) {
+
         // ----------------------------------| V0.1 |----------------------------------
         List<Long> author_ids = getAuthorIDs(transferibleLibro);
+        Long category_id = getCategoryId(transferibleLibro);
 
-        return TransformadorLibro.INSTANCE.toLibroDTO(acceso.persistBook(TransformadorLibro.INSTANCE.toEntity(transferibleLibro), author_ids));
+        return TransformadorCreateUpdateLIbro.INSTANCE.toLibroDTO(acceso.persistBook(TransformadorCreateUpdateLIbro.INSTANCE.toEntity(transferibleLibro), author_ids, category_id));
     }
 
     @Fallback(fallbackMethod = "fallbackPersistBook")
@@ -76,7 +84,7 @@ public class ServicioLibro {
         return TransformadorLibro.INSTANCE.toLibroDTOList(acceso.findBooksByCategory(category));
     }
 
-    public List<Long> getAuthorIDs(TransferibleLibro transferibleLibro){
+    public List<Long> getAuthorIDs(TransferibleCreateUpdateLibro transferibleLibro){
         List<Long> author_ids = new ArrayList<>();
         for (TransferibleAuthor autor : transferibleLibro.getAuthors()){
             if (autor.getId() != null){
@@ -88,6 +96,20 @@ public class ServicioLibro {
             }
         }
         return author_ids;
+    }
+
+    public Long getCategoryId(TransferibleCreateUpdateLibro transferibleLibro){
+        Long id = 1L;
+        if(transferibleLibro.getCategory() != null){
+            if(transferibleLibro.getCategory().getId() != null){
+                id = transferibleLibro.getCategory().getId();
+            }
+            else{
+                TransferibleCategory persistedCategry = TransformadorCategory.INSTANCE.toCategoryDTO(accesoCategory.persistCategory(TransformadorCategory.INSTANCE.toEntity(transferibleLibro.getCategory())));
+                id = persistedCategry.getId();
+            }
+        }
+        return id;
     }
 
 }

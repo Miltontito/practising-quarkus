@@ -33,6 +33,8 @@ public class AccesoLibro implements AccesoLibroInterfaz{
 
     @Inject
     AccesoAuthorInterface accesoAuthor;
+    @Inject
+    AccesoCategoryInteface accesoCategory;
 
     @Inject
     EntityManager em;
@@ -44,13 +46,15 @@ public class AccesoLibro implements AccesoLibroInterfaz{
     @Override
     @Transactional
     //requiere un autor, puede ser null en ese caso lo crea
-    public Book persistBook(Book book, List<Long> author_ids) {
+    public Book persistBook(Book book, List<Long> author_ids, Long category_id) {
 
         List<Author> authorList = new ArrayList<>();
         for(Long id : author_ids){
             authorList.add(accesoAuthor.findAuthorById(id));
         }
         book.setAuthors(authorList);
+
+        book.setCategory(accesoCategory.findCategoryById(category_id));
 
         //The book microservice invokes the number microservice
         IsbnNumbers isbnNumbers = numberProxy.generateIsbnNumbers();

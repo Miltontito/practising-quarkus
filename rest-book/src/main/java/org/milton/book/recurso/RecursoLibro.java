@@ -18,6 +18,7 @@ import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
 import org.milton.book.servicio.ServicioLibro;
+import org.milton.book.transferible.TransferibleCreateUpdateLibro;
 import org.milton.book.transferible.TransferibleLibro;
 
 import java.net.URI;
@@ -125,8 +126,8 @@ public class RecursoLibro {
             "the createBook method", unit = MetricUnits.MILLISECONDS)
     //----------------------| Peticion POST -> Crea un libro |----------------------
     @POST
-    public Response createBook(@RequestBody(required = true, content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = TransferibleLibro.class)))
-                                @Valid TransferibleLibro transferibleLibro,
+    public Response createBook(@RequestBody(required = true, content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = TransferibleCreateUpdateLibro.class)))
+                                @Valid TransferibleCreateUpdateLibro transferibleLibro,
                                 @Context UriInfo uriInfo) {
         transferibleLibro = service.persistBook(transferibleLibro);
         UriBuilder builder = uriInfo.getAbsolutePathBuilder().path(Long.toString(transferibleLibro.getId()));

@@ -14,7 +14,7 @@ public interface AccesoLibroInterfaz extends PanacheRepository<Book> {
     Book findRandomBook();
     List<Book> findAllBooks();
     Book findBookById(Long id);
-    Book persistBook(Book book, List<Long> author_ids);
+    Book persistBook(Book book, List<Long> author_ids, Long category_id);
     Book updateBook(Book book);
     void deleteBook(Long id);
     Book fallbackPersistBook(Book book) throws FileNotFoundException;
