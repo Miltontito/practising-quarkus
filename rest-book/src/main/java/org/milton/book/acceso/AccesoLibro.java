@@ -45,7 +45,6 @@ public class AccesoLibro implements AccesoLibroInterfaz{
 
     @Override
     @Transactional
-    //requiere un autor, puede ser null en ese caso lo crea
     public Book persistBook(Book book, List<Long> author_ids, Long category_id) {
 
         if(author_ids != null){
@@ -141,6 +140,7 @@ public class AccesoLibro implements AccesoLibroInterfaz{
     public List<Book> findBooksByCategory(String category){
         return find("SELECT b FROM Book b WHERE b.category.id IN " +
                 "(SELECT c.id FROM Category c WHERE c.name = ?1 " +
-                "OR c.id IN (SELECT sc.id FROM Category sc WHERE sc.parentCategory.id = (SELECT c2.id FROM Category c2 WHERE c2.name = ?1)))", category).list();
+                "OR c.id IN (SELECT sc.id FROM Category sc WHERE sc.parentCategory.id = " +
+                "(SELECT c2.id FROM Category c2 WHERE c2.name = ?1)))", category).list();
     }
 }

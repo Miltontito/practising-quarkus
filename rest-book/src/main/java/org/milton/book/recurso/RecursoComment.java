@@ -37,12 +37,6 @@ public class RecursoComment {
     @Inject
     Logger LOGGER;
 
-    //Ping
-    @GET
-    @Path("/ping")
-    @Produces(MediaType.TEXT_PLAIN)
-    public String ping() {return "ping";}
-
     //----------------------| Documentación API |----------------------
     @Operation(summary = "Returns all the comments from the database")
     @APIResponse(responseCode = "200", content = @Content(mediaType = MediaType

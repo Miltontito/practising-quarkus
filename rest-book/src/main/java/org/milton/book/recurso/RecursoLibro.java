@@ -34,14 +34,6 @@ import static jakarta.ws.rs.core.Response.Status.NOT_FOUND;
 
 public class RecursoLibro {
 
-    //Ping
-    @GET
-    @Path("/ping")
-    @Produces(MediaType.TEXT_PLAIN)
-    public String ping() {
-        return "ping";
-    }
-
     //Injeccion del BookService como service.
     @Inject
     ServicioLibro service;
@@ -177,6 +169,16 @@ public class RecursoLibro {
 
     // ----------------------------------| V0.1 |----------------------------------
 
+    //----------------------| Documentación API |----------------------
+    @Operation(summary = "Returns all Books for a given Author")
+    @APIResponse(responseCode = "200", content = @Content(mediaType = MediaType.APPLICATION_JSON,
+                                        schema = @Schema(implementation = TransferibleLibro.class, type = SchemaType.ARRAY)))
+    //----------------------| MEtrics |----------------------
+    @Counted(name = "countGetAuthorBooks", description = "Counts how many times the getAuthorBooks " +
+            "method has been invoked")
+    @Timed(name = "timeGetAuthorBooks", description = "Times how long it takes to invoke the " +
+            "getAuthorBooks method", unit = MetricUnits.MILLISECONDS)
+    //----------------------| Peticion GET -> Obtiene todos los libros de un autor |----------------------
     @GET
     @Path("/author/{id}")
     public Response getAuthorBooks(@PathParam("id") Long id){
@@ -185,12 +187,33 @@ public class RecursoLibro {
         return Response.ok(transferibleLibroList).build();
     }
 
+    //----------------------| Documentación API |----------------------
+    @Operation(summary = "Returns all Books greater than a given Score")
+    @APIResponse(responseCode = "200", content = @Content(mediaType = MediaType.APPLICATION_JSON,
+            schema = @Schema(implementation = TransferibleLibro.class, type = SchemaType.ARRAY)))
+    //----------------------| MEtrics |----------------------
+    @Counted(name = "countGetBestBooks", description = "Counts how many times the getBestBooks " +
+            "method has been invoked")
+    @Timed(name = "timeGetBestBooks", description = "Times how long it takes to invoke the " +
+            "getBestBooks method", unit = MetricUnits.MILLISECONDS)
+    //----------------------| Peticion GET -> Obtiene todos los libros mayores a cierto puntaje |----------------------
     @GET
     @Path("/best/{score}")
     public Response getBestBooks(@PathParam("score") Integer score){
         List<TransferibleLibro> transferibleLibroList = service.findBestBooks(score);
         return  Response.ok(transferibleLibroList).build();
     }
+
+    //----------------------| Documentación API |----------------------
+    @Operation(summary = "Returns all Books from a Category and Sub-category")
+    @APIResponse(responseCode = "200", content = @Content(mediaType = MediaType.APPLICATION_JSON,
+            schema = @Schema(implementation = TransferibleLibro.class, type = SchemaType.ARRAY)))
+    //----------------------| MEtrics |----------------------
+    @Counted(name = "countGetCategoryBooks", description = "Counts how many times the getCategoryBooks " +
+            "method has been invoked")
+    @Timed(name = "timeGetCategoryBooks", description = "Times how long it takes to invoke the " +
+            "getCategoryBooks method", unit = MetricUnits.MILLISECONDS)
+    //----------------------| Peticion GET -> Obtiene todos los libros según su categoría y también libros de la subcategoría |----------------------
 
     //Retorna todos los libros según su categoría, y a su vez, retorna todos los libros según su subcategoría
     @GET

@@ -83,7 +83,7 @@ public class ServicioLibro {
         return TransformadorLibro.INSTANCE.toLibroDTOList(acceso.findBooksByCategory(category));
     }
 
-    //Pasar metodo al área de Author?
+    //Pasar metodo al área de Author? Autores se debería encargar de este metodo?
     public List<Long> getAuthorIDs(TransferibleCreateUpdateLibro transferibleLibro){
         if(transferibleLibro.getAuthors() == null){
             return null;
@@ -102,8 +102,7 @@ public class ServicioLibro {
     }
 
 
-    //Pasar metodo al área de Category?
-
+    //Pasar metodo al área de Category? Categoria se debería encargar de este metodo?
     //Devuelve el id de la tabla con todas las relaciones armadas.
     public Long getCategoryId(TransferibleCategory transferibleCategory){
 

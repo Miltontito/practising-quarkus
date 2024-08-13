@@ -38,12 +38,6 @@ public class RecursoCategory {
     @Inject
     Logger LOGGER;
 
-    //Ping
-    @GET
-    @Path("/ping")
-    @Produces(MediaType.TEXT_PLAIN)
-    public String ping() {return "ping";}
-
     //----------------------| Documentación API |----------------------
     @Operation(summary = "Returns all the categories from the database")
     @APIResponse(responseCode = "200", content = @Content(mediaType = MediaType
